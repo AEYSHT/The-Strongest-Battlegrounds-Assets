@@ -1,0 +1,62 @@
+local v817 = game:GetService("Players")
+                local v818 = game:GetService("CollectionService")
+                local v819 = v817.LocalPlayer
+                local v820 = v819.Character or v819.CharacterAdded:Wait()
+                local vu821 = v820:WaitForChild("Humanoid")
+                local v822 = v820:FindFirstChild("Torso") or v820:FindFirstChild("UpperTorso")
+                local vu823 = Instance.new("Sound")
+                vu823.SoundId = "rbxassetid://91565431637142"
+                vu823.Volume = 0.5
+                vu823.Looped = true
+                vu823.Parent = v822
+                vu823:Play()
+                local v824 = Instance.new("Animation")
+                v824.AnimationId = "rbxassetid://" .. 131177495882827
+                local v825 = vu821:LoadAnimation(v824)
+                v825:Play()
+                local v826 = v820:FindFirstChild("Right Arm") or v820:FindFirstChild("RightHand")
+                local vu827 = {}
+                local v828 = 118383042869348
+                for _ = 1, 2 do
+                    local v829 = script:WaitForChild("cursedEnergy2"):Clone()
+                    v829.Parent = v820
+                    v829:SetAttribute("EmoteProperty", true)
+                    table.insert(vu827, v829)
+                    v818:AddTag(v829, "emoteendstuff" .. v820.Name)
+                    local v830 = Instance.new("Weld")
+                    v830.Part0 = v826
+                    v830.Part1 = v829
+                    v830.Parent = v829
+                    v830.C0 = CFrame.new(0, - 1, 0)
+                    v826 = v820:FindFirstChild("Left Arm")
+                    if not v826 then
+                        v826 = v820:FindFirstChild("LeftHand")
+                    end
+                end
+                local vu831 = Instance.new("Animation")
+                vu831.AnimationId = "rbxassetid://" .. v828
+                local vu832 = nil
+                v825.Stopped:Connect(function()
+                    vu832 = vu821:LoadAnimation(vu831)
+                    vu832:Play()
+                end)
+                task.delay(10, function()
+                    local v833, v834, v835 = ipairs(vu827)
+                    while true do
+                        local v836
+                        v835, v836 = v833(v834, v835)
+                        if v835 == nil then
+                            break
+                        end
+                        if v836 and v836.Parent then
+                            v836:Destroy()
+                        end
+                    end
+                    if vu823 and vu823.Parent then
+                        vu823:Stop()
+                        vu823:Destroy()
+                    end
+                    if vu832 then
+                        vu832:Stop()
+                    end
+                end)

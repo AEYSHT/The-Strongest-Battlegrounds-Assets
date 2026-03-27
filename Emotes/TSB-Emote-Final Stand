@@ -1,0 +1,108 @@
+local v40 = game:GetService("Players")
+                local vu41 = game:GetService("TweenService")
+                local vu42 = game:GetService("ReplicatedStorage")
+                local vu43 = v40.LocalPlayer.Character
+                local v44 = Instance.new("Animation")
+                v44.AnimationId = "rbxassetid://113876851900426"
+                vu43.Humanoid:LoadAnimation(v44):Play()
+                task.delay(0.1, function()
+                    local v45 = Instance.new("Accessory")
+                    v45.Name = "#EmoteHolder_" .. math.random(1, 100000)
+                    v45.Parent = vu43
+                    v45:SetAttribute("EmoteProperty", true)
+                    require(vu42.Emotes.VFX):MainFunction({
+                        Character = vu43,
+                        vfxName = "Final Stand",
+                        SpecificModule = vu42.Emotes.VFX,
+                        AnimSent = 113876851900426,
+                        RealBind = v45
+                    })
+                end)
+                task.delay(9, function()
+                    if acc and acc.Parent and workspace.Live:FindFirstChild(tostring(vu43)) then
+                        local v46, v47, v48 = pairs({
+                            {
+                                SoundId = "rbxassetid://112446641141594",
+                                Volume = 1
+                            },
+                            {
+                                SoundId = "rbxassetid://98080224862986",
+                                Volume = 0.3
+                            }
+                        })
+                        while true do
+                            local v49
+                            v48, v49 = v46(v47, v48)
+                            if v48 == nil then
+                                break
+                            end
+                            local vu50 = Instance.new("Sound")
+                            vu50.SoundId = v49.SoundId
+                            vu50.Volume = v49.Volume
+                            vu50.Looped = true
+                            vu50.Parent = vu43:FindFirstChild("Torso")
+                            local v51 = vu50
+                            vu50.Play(v51)
+                            task.delay(60, function()
+                                vu41:Create(vu50, TweenInfo.new(0.5), {
+                                    Volume = 0
+                                }):Play()
+                                task.delay(0.75, function()
+                                    if vu50 and vu50.Parent then
+                                        vu50:Destroy()
+                                    end
+                                end)
+                            end)
+                        end
+                        local v52 = vu42.Emotes.VFX.VfxMods.FS.vfx.Aura:Clone()
+                        local v53, v54, v55 = pairs(v52:GetChildren())
+                        while true do
+                            local v56
+                            v55, v56 = v53(v54, v55)
+                            if v55 == nil then
+                                break
+                            end
+                            local v57 = vu43:FindFirstChild(v56.Name)
+                            if v56.Name == "HumanoidRootPart" then
+                                v57 = vu43:FindFirstChild("Torso")
+                            end
+                            if v57 then
+                                local v58, v59, v60 = pairs(v56:GetChildren())
+                                while true do
+                                    local vu61
+                                    v60, vu61 = v58(v59, v60)
+                                    if v60 == nil then
+                                        break
+                                    end
+                                    if vu61:IsA("ParticleEmitter") then
+                                        vu61.LockedToPart = true
+                                    end
+                                    vu61:SetAttribute("LimitedAura", true)
+                                    vu61.Parent = v57
+                                    task.delay(65, function()
+                                        if vu61 and vu61.Parent then
+                                            vu61:Destroy()
+                                        end
+                                    end)
+                                    task.delay(60, function()
+                                        if vu61:IsA("ParticleEmitter") then
+                                            vu61.Enabled = false
+                                        else
+                                            local v62 = vu61
+                                            local v63, v64, v65 = pairs(v62:GetChildren())
+                                            while true do
+                                                local v66
+                                                v65, v66 = v63(v64, v65)
+                                                if v65 == nil then
+                                                    break
+                                                end
+                                                v66.Enabled = false
+                                            end
+                                        end
+                                    end)
+                                end
+                            end
+                        end
+                        v52:Destroy()
+                    end
+                end)

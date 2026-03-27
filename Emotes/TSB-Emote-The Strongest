@@ -1,0 +1,48 @@
+local vu196 = game:GetService("Players").LocalPlayer.Character
+                local v197 = {
+                    [0] = {
+                        SoundId = "rbxassetid://117787451950766",
+                        Volume = 2
+                    },
+                    [0.01] = {
+                        SoundId = "rbxassetid://97998065677521",
+                        Volume = 1.85
+                    },
+                    [2.29] = {
+                        SoundId = "rbxassetid://99535007576182",
+                        Looped = true,
+                        Volume = 2
+                    }
+                }
+                local v198, v199, v200 = pairs(v197)
+                while true do
+                    local vu201
+                    v200, vu201 = v198(v199, v200)
+                    if v200 == nil then
+                        break
+                    end
+                    task.delay(v200, function()
+                        local v202 = Instance.new("Sound")
+                        v202.SoundId = vu201.SoundId
+                        v202.Volume = vu201.Volume or 1
+                        v202.Looped = vu201.Looped or false
+                        v202.Parent = workspace
+                        v202:Play()
+                    end)
+                end
+                local v203 = Instance.new("Animation")
+                v203.AnimationId = "rbxassetid://86505219150915"
+                vu196.Humanoid:LoadAnimation(v203):Play()
+                task.delay(0.1, function()
+                    local v204 = Instance.new("Folder")
+                    v204.Name = "PrideBind"
+                    v204.Parent = vu196
+                    v204:SetAttribute("EmoteProperty", true)
+                    require(game.ReplicatedStorage.Emotes.VFX):MainFunction({
+                        Character = vu196,
+                        vfxName = "Boss Raid",
+                        SpecificModule = game.ReplicatedStorage.Emotes.VFX,
+                        AnimSent = 86505219150915,
+                        RealBind = v204
+                    })
+                end)

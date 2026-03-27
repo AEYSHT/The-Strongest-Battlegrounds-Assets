@@ -1,0 +1,49 @@
+local vu750 = game:GetService("Players").LocalPlayer
+                local v751 = vu750.Character or vu750.CharacterAdded:Wait()
+                local v752 = v751:WaitForChild("Humanoid")
+                local vu753 = game:GetService("CollectionService")
+                local vu754 = Instance.new("Sound")
+                vu754.SoundId = "rbxassetid://118729435940431"
+                vu754.Volume = 2
+                vu754.Looped = true
+                vu754.Parent = v751:FindFirstChild("HumanoidRootPart") or v751.PrimaryPart
+                vu754:Play()
+                local v755 = Instance.new("Animation")
+                v755.AnimationId = "rbxassetid://91110779676867"
+                local vu756 = v752:LoadAnimation(v755)
+                vu756.Looped = false
+                local v757 = vu756
+                vu756.Play(v757)
+                local vu758 = {}
+                local function v760(p759)
+                    p759:SetAttribute("EmoteProperty", true)
+                    table.insert(vu758, p759)
+                    vu753:AddTag(p759, "emoteendstuff" .. vu750.Name)
+                end
+                local vu761 = script.objection:Clone()
+                v760(vu761)
+                local v762 = vu761.objection
+                v760(v762)
+                v762.Part0 = v751.PrimaryPart
+                v762.Part1 = vu761
+                v762.Parent = v751.PrimaryPart
+                vu761.Parent = v751
+                local function v767()
+                    vu756:Stop()
+                    vu754:Stop()
+                    local v763, v764, v765 = pairs(vu758)
+                    while true do
+                        local v766
+                        v765, v766 = v763(v764, v765)
+                        if v765 == nil then
+                            break
+                        end
+                        if v766 and v766.Parent then
+                            v766:Destroy()
+                        end
+                    end
+                    if vu761 and vu761.Parent then
+                        vu761:Destroy()
+                    end
+                end
+                vu756.Stopped:Connect(v767)

@@ -1,0 +1,24 @@
+local v417 = game:GetService("Players")
+                local v418 = game:GetService("ReplicatedStorage")
+                local v419 = v417.LocalPlayer
+                local v420 = v419.Character or v419.CharacterAdded:Wait()
+                local v421 = v420:WaitForChild("Humanoid")
+                local v422 = Instance.new("Animation")
+                v422.AnimationId = "rbxassetid://83905432418191"
+                v421:LoadAnimation(v422):Play()
+                local v423 = Instance.new("Accessory")
+                v423.Name = "#EmoteHolder_" .. math.random(1, 100000)
+                v423.Parent = v420
+                v423:SetAttribute("EmoteProperty", true)
+                require(v418.Emotes.VFX):MainFunction({
+                    Character = v420,
+                    vfxName = "Embers",
+                    SpecificModule = v418.Emotes.VFX,
+                    AnimSent = 83905432418191,
+                    RealBind = v423
+                })
+                local v424 = Instance.new("Sound")
+                v424.SoundId = "rbxassetid://94529938730886"
+                v424.Volume = 3.45
+                v424.Parent = game.Players.LocalPlayer.Character:FindFirstChild("Torso") or (game.Players.LocalPlayer.Character:FindFirstChild("UpperTorso") or workspace)
+                v424:Play()

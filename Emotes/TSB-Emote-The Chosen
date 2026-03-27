@@ -1,0 +1,101 @@
+local Players = game:GetService("Players")
+local CollectionService = game:GetService("CollectionService")
+local TweenService = game:GetService("TweenService")
+
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+local rootPart = character.PrimaryPart or character:WaitForChild("HumanoidRootPart")
+local torso = character:FindFirstChild("Torso") or character:FindFirstChild("UpperTorso")
+
+local cleanUpTable = {}
+
+local sound1 = Instance.new("Sound")
+sound1.SoundId = "rbxassetid://18843153605"
+sound1.Volume = 1.2
+sound1.Parent = torso
+sound1:Play()
+
+local soundLooped = Instance.new("Sound")
+soundLooped.SoundId = "rbxassetid://1838611838"
+soundLooped.Volume = 0.5
+soundLooped.Looped = true
+soundLooped.TimePosition = 33
+soundLooped.Parent = torso
+soundLooped:Play()
+
+local freezeFolder = Instance.new("Folder")
+freezeFolder.Name = "Freeze"
+freezeFolder:SetAttribute("DontInterrupt", true)
+freezeFolder:SetAttribute("NoStop", true)
+freezeFolder:SetAttribute("EmoteProperty", true)
+freezeFolder.Parent = character
+table.insert(cleanUpTable, freezeFolder)
+
+local particlesSource = script:FindFirstChild("chosenparticles")
+if particlesSource then
+    local particles = particlesSource:Clone()
+    particles:SetAttribute("EmoteProperty", true)
+    CollectionService:AddTag(particles, "emoteendstuff" .. character.Name)
+    
+    local beamData = {}
+    for _, child in pairs(particles:GetChildren()) do
+        if child:IsA("Beam") and child.Enabled then
+            table.insert(beamData, {child, child.Width1})
+            child.Enabled = false
+            child.Width1 = 0
+        end
+    end
+
+    local weld = Instance.new("Weld")
+    weld.Part0 = rootPart
+    weld.Part1 = particles
+    weld.C0 = CFrame.new(-1.32, 4.14, 1.88, 1, 0, 0, 0, 0.965, 0.258, 0, -0.258, 0.965)
+    weld.Parent = particles
+    particles.Parent = character
+    table.insert(cleanUpTable, particles)
+
+    task.delay(2, function()
+        for _, data in pairs(beamData) do
+            local beam = data[1]
+            local originalWidth = data[2]
+            beam.Enabled = true
+            TweenService:Create(beam, TweenInfo.new(1 + math.random(), Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
+                Width1 = originalWidth
+            }):Play()
+        end
+    end)
+end
+
+local anim1 = Instance.new("Animation")
+anim1.AnimationId = "rbxassetid://18897534746"
+local track1 = humanoid:LoadAnimation(anim1)
+track1:Play()
+
+local anim2 = Instance.new("Animation")
+anim2.AnimationId = "rbxassetid://18897538537"
+local track2
+
+track1.Stopped:Connect(function()
+    track2 = humanoid:LoadAnimation(anim2)
+    track2:Play()
+end)
+
+local soundFinal = Instance.new("Sound")
+soundFinal.SoundId = "rbxassetid://15443922202"
+soundFinal.Volume = 1
+soundFinal.Parent = torso
+table.insert(cleanUpTable, soundFinal)
+soundFinal:Play()
+
+task.delay(10, function()
+    for _, obj in pairs(cleanUpTable) do
+        if obj and obj.Parent then
+            obj:Destroy()
+        end
+    end
+    if sound1 then sound1:Destroy() end
+    if soundLooped then soundLooped:Destroy() end
+    if track1 then track1:Stop() end
+    if track2 then track2:Stop() end
+end)

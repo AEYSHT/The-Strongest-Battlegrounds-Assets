@@ -1,0 +1,68 @@
+local vu653 = game:GetService("Players").LocalPlayer
+                local vu654 = vu653.Character or vu653.CharacterAdded:Wait()
+                local v655 = vu654:WaitForChild("Humanoid")
+                local vu656 = game:GetService("CollectionService")
+                local vu657 = Instance.new("Sound")
+                vu657.SoundId = "rbxassetid://131221493098961"
+                vu657.Volume = 2
+                vu657.Looped = true
+                vu657.Parent = vu654:FindFirstChild("HumanoidRootPart") or vu654.PrimaryPart
+                vu657:Play()
+                local v658 = Instance.new("Animation")
+                v658.AnimationId = "rbxassetid://132769857103497"
+                local vu659 = v655:LoadAnimation(v658)
+                vu659.Looped = true
+                local v660 = vu659
+                vu659.Play(v660)
+                local vu661 = {}
+                local function vu663(p662)
+                    p662:SetAttribute("EmoteProperty", true)
+                    table.insert(vu661, p662)
+                    vu656:AddTag(p662, "emoteendstuff" .. vu653.Name)
+                end
+                local function vu668(p664, p665, p666)
+                    local v667 = p664:FindFirstChildOfClass("Motor6D")
+                    if v667 then
+                        vu663(v667)
+                        v667.Part0 = p665
+                        v667.Part1 = p666 or p664
+                        v667.Parent = p665
+                    end
+                end;
+                (function()
+                    local v669 = script.SumWater:Clone()
+                    vu663(v669)
+                    v669.Parent = vu654
+                    local v670 = v669:FindFirstChild("SumWater")
+                    if v670 then
+                        vu668(v670, vu654.Head, v669)
+                    end
+                    local v671 = script.AuraRen:Clone()
+                    vu663(v671)
+                    v671.Parent = vu654
+                    if v671:FindFirstChildOfClass("Motor6D") then
+                        vu668(v671, vu654.PrimaryPart, v671)
+                    end
+                    local v672 = script.tounge:Clone()
+                    vu663(v672)
+                    v672.Parent = vu654
+                    local v673 = v672:FindFirstChild("tounge")
+                    if v673 then
+                        vu668(v673, vu654.Head, v672)
+                    end
+                end)()
+                task.delay(10, function()
+                    vu659:Stop()
+                    vu657:Stop()
+                    local v674, v675, v676 = pairs(vu661)
+                    while true do
+                        local v677
+                        v676, v677 = v674(v675, v676)
+                        if v676 == nil then
+                            break
+                        end
+                        if v677 and v677.Parent then
+                            v677:Destroy()
+                        end
+                    end
+                end)

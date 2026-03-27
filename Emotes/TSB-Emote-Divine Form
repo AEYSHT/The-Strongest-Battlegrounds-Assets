@@ -1,0 +1,127 @@
+task.spawn(function()
+                    wait(7.14)
+                    local v162 = game.Players.LocalPlayer
+                    local vu163 = v162.Character or v162.CharacterAdded:Wait()
+                    local vu164 = game:GetService("ReplicatedStorage").Emotes.VFX.VfxMods.Evolved.vfx.Folder;
+                    (function()
+                        local v165 = Instance.new("Folder")
+                        v165.Name = "AuraHolder"
+                        v165:SetAttribute("DivineForm", true)
+                        v165:SetAttribute("LimAura", true)
+                        v165:SetAttribute("EmoteEffect", true)
+                        v165.Parent = vu163
+                        local v166 = vu164
+                        local v167, v168, v169 = pairs(v166:GetChildren())
+                        while true do
+                            local v170
+                            v169, v170 = v167(v168, v169)
+                            if v169 == nil then
+                                break
+                            end
+                            if v170:IsA("BasePart") then
+                                local v171 = vu163:FindFirstChild(v170.Name)
+                                if v171 then
+                                    local vu172 = v170:Clone()
+                                    vu172.Transparency = 1
+                                    vu172.Massless = true
+                                    vu172:SetAttribute("LimAura", true)
+                                    vu172.Name = tostring(math.random(1, 1000))
+                                    vu172.Parent = v165
+                                    local v173 = Instance.new("Weld")
+                                    v173.Part0 = v171
+                                    v173.Part1 = vu172
+                                    v173.Parent = vu172
+                                    local v174, v175, v176 = pairs(vu172:GetDescendants())
+                                    while true do
+                                        local vu177
+                                        v176, vu177 = v174(v175, v176)
+                                        if v176 == nil then
+                                            break
+                                        end
+                                        if vu177:IsA("ParticleEmitter") or vu177:IsA("Beam") then
+                                            vu177:SetAttribute("LimitedAura", true)
+                                            task.delay(240, function()
+                                                vu177.Enabled = false
+                                            end)
+                                        end
+                                    end
+                                    task.delay(244, function()
+                                        if vu172 and vu172.Parent then
+                                            vu172:Destroy()
+                                        end
+                                    end)
+                                end
+                            end
+                        end
+                    end)()
+                end)
+                local vu178 = game:GetService("Players").LocalPlayer.Character
+                local v179 = vu178.Humanoid
+                local v180 = Instance.new("Animation")
+                v180.AnimationId = "rbxassetid://116187503451999"
+                v179:LoadAnimation(v180):Play()
+                local vu181 = Instance.new("Accessory")
+                vu181.Name = "#EmoteHolder_" .. math.random(1, 100000)
+                vu181.Parent = vu178
+                local v182 = vu181
+                vu181.SetAttribute(v182, "EmoteProperty", true)
+                require(game.ReplicatedStorage.Emotes.VFX):MainFunction({
+                    Character = vu178,
+                    vfxName = "Divine Form",
+                    SpecificModule = game.ReplicatedStorage.Emotes.VFX,
+                    AnimSent = 116187503451999,
+                    RealBind = vu181
+                })
+                task.delay(7, function()
+                    if vu181 and vu181.Parent and workspace.Live:FindFirstChild(tostring(vu178)) then
+                        local v183 = Instance.new("Folder")
+                        v183.Name = "AuraHolder"
+                        v183:SetAttribute("DivineForm", true)
+                        v183:SetAttribute("LimAura", true)
+                        v183:SetAttribute("EmoteEffect", true)
+                        v183.Parent = vu178
+                        local v184 = game.ReplicatedStorage.Emotes.VFX.VfxMods.Evolved.vfx.Folder
+                        local v185, v186, v187 = pairs(v184:GetChildren())
+                        while true do
+                            local v188
+                            v187, v188 = v185(v186, v187)
+                            if v187 == nil then
+                                break
+                            end
+                            if v188:IsA("BasePart") then
+                                local v189 = vu178:FindFirstChild(v188.Name)
+                                if v189 then
+                                    local vu190 = v188:Clone()
+                                    vu190.Transparency = 1
+                                    vu190.Massless = true
+                                    vu190.Name = tostring(math.random(1, 1000))
+                                    vu190:SetAttribute("LimAura", true)
+                                    local v191 = Instance.new("Weld")
+                                    v191.Part0 = v189
+                                    v191.Part1 = vu190
+                                    v191.Parent = vu190
+                                    vu190.Parent = v183
+                                    local v192, v193, v194 = pairs(vu190:GetDescendants())
+                                    while true do
+                                        local vu195
+                                        v194, vu195 = v192(v193, v194)
+                                        if v194 == nil then
+                                            break
+                                        end
+                                        if vu195:IsA("ParticleEmitter") or vu195:IsA("Beam") then
+                                            vu195:SetAttribute("LimitedAura", true)
+                                            task.delay(2, function()
+                                                vu195.Enabled = false
+                                            end)
+                                        end
+                                    end
+                                    task.delay(4, function()
+                                        if vu190 and vu190.Parent then
+                                            vu190:Destroy()
+                                        end
+                                    end)
+                                end
+                            end
+                        end
+                    end
+                end)

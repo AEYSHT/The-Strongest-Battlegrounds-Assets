@@ -1,0 +1,30 @@
+local p = game.Players.LocalPlayer
+local s = game:GetService("SoundService")
+local c = p.Character or p.CharacterAdded:Wait()
+local h = c:WaitForChild("Humanoid")
+local animator = h:FindFirstChildOfClass("Animator") or Instance.new("Animator", h)
+
+local ss = Instance.new("Sound")
+ss.SoundId = "rbxassetid://93273930314761"
+ss.Volume = 0.5
+ss.Parent = s
+ss:Play()
+local a = Instance.new("Animation")
+a.AnimationId = "rbxassetid://80293430011221"
+
+local track = animator:LoadAnimation(a)
+track:Play()
+
+local e = Instance.new("Accessory")
+e.Name = "#EmoteHolder_" .. math.random(1e5)
+e:SetAttribute("EmoteProperty", true)
+e.Parent = c
+
+local vfxModule = game.ReplicatedStorage.Emotes.VFX
+require(vfxModule):MainFunction({
+    Character = c,
+    vfxName = "Fly High",
+    SpecificModule = vfxModule,
+    AnimSent = 80293430011221,
+    RealBind = e
+})

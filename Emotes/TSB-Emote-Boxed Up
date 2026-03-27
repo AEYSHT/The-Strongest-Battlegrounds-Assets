@@ -1,0 +1,24 @@
+local v434 = game:GetService("Players")
+                local v435 = game:GetService("ReplicatedStorage")
+                local v436 = v434.LocalPlayer
+                local v437 = v436.Character or v436.CharacterAdded:Wait()
+                local v438 = v437:WaitForChild("Humanoid")
+                local v439 = Instance.new("Animation")
+                v439.AnimationId = "rbxassetid://111810635064735"
+                v438:LoadAnimation(v439):Play()
+                local v440 = Instance.new("Accessory")
+                v440.Name = "#EmoteHolder_" .. math.random(1, 100000)
+                v440.Parent = v437
+                v440:SetAttribute("EmoteProperty", true)
+                require(v435.Emotes.VFX):MainFunction({
+                    Character = v437,
+                    vfxName = "Boxed Up",
+                    SpecificModule = v435.Emotes.VFX,
+                    AnimSent = 111810635064735,
+                    RealBind = v440
+                })
+                local v441 = Instance.new("Sound")
+                v441.SoundId = "rbxassetid://90314606305113"
+                v441.Volume = 3
+                v441.Parent = workspace
+                v441:Play()

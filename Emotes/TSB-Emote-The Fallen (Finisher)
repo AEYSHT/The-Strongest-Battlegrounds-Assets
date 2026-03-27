@@ -1,0 +1,50 @@
+local v371 = game:GetService("Players").LocalPlayer
+                local v372 = v371.Character or v371.CharacterAdded:Wait()
+                local v373 = v372:WaitForChild("Torso") or v372:WaitForChild("UpperTorso")
+                local v374 = next
+                local v375 = {
+                    {
+                        SoundId = "rbxassetid://113267998039039",
+                        Volume = 1.65,
+                        ParentTorso = true
+                    }
+                }
+                local v376 = nil
+                local v377 = "rbxassetid://87401852788032"
+                while true do
+                    local v378
+                    v376, v378 = v374(v375, v376)
+                    if v376 == nil then
+                        break
+                    end
+                    local v379 = Instance.new("Sound")
+                    v379.SoundId = v378.SoundId
+                    v379.Volume = v378.Volume or 1
+                    v379.Looped = v378.Looped or false
+                    v379.Parent = v378.ParentTorso and v373 and v373 or workspace
+                    v379:Play()
+                end
+                local v380 = Instance.new("Sound")
+                v380.SoundId = v377
+                v380.Volume = 1
+                v380.Parent = workspace
+                v380:Play()
+                local v381 = game:GetService("Players")
+                local v382 = game:GetService("ReplicatedStorage")
+                local v383 = v381.LocalPlayer
+                local v384 = v383.Character or v383.CharacterAdded:Wait()
+                local v385 = v384:WaitForChild("Humanoid")
+                local v386 = Instance.new("Animation")
+                v386.AnimationId = "rbxassetid://95171537920426"
+                v385:LoadAnimation(v386):Play()
+                local v387 = Instance.new("Accessory")
+                v387.Name = "#EmoteHolder_" .. math.random(1, 100000)
+                v387.Parent = v384
+                v387:SetAttribute("EmoteProperty", true)
+                require(v382.Emotes.VFX):MainFunction({
+                    Character = v384,
+                    vfxName = "slice combo",
+                    SpecificModule = v382.Emotes.VFX,
+                    AnimSent = 95171537920426,
+                    RealBind = v387
+                })

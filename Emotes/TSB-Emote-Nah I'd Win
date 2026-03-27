@@ -1,0 +1,155 @@
+script = game:GetService("ReplicatedStorage"):WaitForChild("Emotes")
+                local v442 = game:GetService("Players").LocalPlayer
+                local vu443 = v442.Character or v442.CharacterAdded:Wait()
+                local v444 = vu443
+                local v445 = vu443.WaitForChild(v444, "Humanoid")
+                local v446 = vu443
+                local vu447 = vu443.WaitForChild(v446, "HumanoidRootPart")
+                local function vu455(p448, p449)
+                    local v450 = string.lower(p449)
+                    local v451, v452, v453 = ipairs(p448:GetDescendants())
+                    while true do
+                        local v454
+                        v453, v454 = v451(v452, v453)
+                        if v453 == nil then
+                            break
+                        end
+                        if string.lower(v454.Name) == v450 then
+                            return v454
+                        end
+                    end
+                end
+                local function vu461(p456)
+                    local v457, v458, v459 = ipairs(p456:GetDescendants())
+                    while true do
+                        local v460
+                        v459, v460 = v457(v458, v459)
+                        if v459 == nil then
+                            break
+                        end
+                        if v460:IsA("BasePart") then
+                            return v460
+                        end
+                    end
+                end
+                local function v477(p462, _, p463)
+                    local vu464 = vu455(script, "dialogue") or script:FindFirstChild("dialogue", true)
+                    if vu464 then
+                        local vu465 = nil
+                        pcall(function()
+                            vu465 = vu464:Clone()
+                        end)
+                        if vu465 then
+                            task.spawn(function()
+                                wait(8)
+                                vu465:Destroy()
+                            end)
+                            table.insert(p462, vu465)
+                            local v466 = vu465
+                            vu465.SetAttribute(v466, "EmoteProperty", true)
+                            p463.rock = vu465
+                            vu465.Name = "Handle"
+                            local v467 = vu465
+                            local v468 = vu465.FindFirstChild(v467, "Handle") or vu461(vu465)
+                            if v468 then
+                                v468.Anchored = false
+                                v468.CanCollide = false
+                                v468.Transparency = 0
+                                v468.Position = vu447.Position + vu447.CFrame.LookVector * 3 + Vector3.new(0, 2, 0)
+                            end
+                            local v469 = vu455(vu465, "m6d")
+                            if not v469 then
+                                v469 = Instance.new("Motor6D")
+                                v469.Name = "m6d"
+                            end
+                            v469.Part0 = vu447
+                            v469.Part1 = v468 or vu447
+                            v469.Parent = vu447
+                            local v470 = vu465
+                            local v471, v472, v473 = ipairs(vu465.GetDescendants(v470))
+                            local v474 = vu465
+                            while true do
+                                local v475
+                                v473, v475 = v471(v472, v473)
+                                if v473 == nil then
+                                    break
+                                end
+                                if v475:IsA("BasePart") then
+                                    v475.Transparency = 0
+                                    v475.CanCollide = false
+                                elseif v475:IsA("BillboardGui") then
+                                    v475.Enabled = true
+                                    local v476 = v475:FindFirstChild("CanvasGroup")
+                                    if v476 then
+                                        v476.Enabled = true
+                                    end
+                                elseif v475:IsA("SurfaceGui") then
+                                    v475.Enabled = true
+                                end
+                            end
+                            v474.Parent = vu443
+                        else
+                            warn("Failed to clone dialogue")
+                        end
+                    else
+                        warn("Dialogue not found inside Emotes")
+                        return
+                    end
+                end
+                local v478 = Instance.new("Animation")
+                v478.AnimationId = "rbxassetid://16746843881"
+                local v479 = v445:LoadAnimation(v478)
+                v479:Play()
+                local vu480 = {}
+                v477(vu480, nil, {});
+                ({
+                    visible = function(p481)
+                        if p481.rock then
+                            local v482, v483, v484 = ipairs(p481.rock:GetDescendants())
+                            while true do
+                                local v485
+                                v484, v485 = v482(v483, v484)
+                                if v484 == nil then
+                                    break
+                                end
+                                if v485:IsA("BasePart") then
+                                    v485.Transparency = 0
+                                elseif v485:IsA("BillboardGui") or v485:IsA("SurfaceGui") then
+                                    v485.Enabled = true
+                                end
+                            end
+                        end
+                    end
+                }).visible(vu480)
+                v479.Stopped:Connect(function()
+                    if vu480.rock and vu480.rock.Parent then
+                        vu480.rock:Destroy()
+                    end
+                end)
+                local v486, v487, v488 = pairs({
+                    {
+                        SoundId = "rbxassetid://16746854243",
+                        Volume = 1.5,
+                        Looped = false,
+                        ParentTorso = true
+                    }
+                })
+                local v489 = vu447
+                local v490 = vu443
+                while true do
+                    local v491
+                    v488, v491 = v486(v487, v488)
+                    if v488 == nil then
+                        break
+                    end
+                    local v492 = Instance.new("Sound")
+                    v492.SoundId = v491.SoundId
+                    v492.Volume = v491.Volume
+                    v492.Looped = v491.Looped
+                    if v491.ParentTorso then
+                        v492.Parent = v490:FindFirstChild("Torso") or (v490:FindFirstChild("UpperTorso") or v489)
+                    else
+                        v492.Parent = v490
+                    end
+                    v492:Play()
+                end

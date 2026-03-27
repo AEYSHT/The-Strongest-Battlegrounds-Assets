@@ -1,0 +1,77 @@
+local Players = game:GetService("Players")
+local CollectionService = game:GetService("CollectionService")
+
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+local torso = character:FindFirstChild("Torso") or character:FindFirstChild("UpperTorso")
+
+local objectsToClean = {}
+
+-- Configuración del Sonido
+local sound = Instance.new("Sound")
+sound.SoundId = "rbxassetid://117253563855238"
+sound.Volume = 2
+sound.Looped = false
+sound.Parent = torso
+sound:Play()
+
+-- Configuración del Objeto (Asegúrate que 'RockBig' exista dentro del script)
+local rock = script:FindFirstChild("RockBig")
+if rock then
+    local rockClone = rock:Clone()
+    rockClone.Parent = character
+    rockClone.Anchored = true
+    rockClone:SetAttribute("EmoteProperty", true)
+    table.insert(objectsToClean, rockClone)
+    CollectionService:AddTag(rockClone, "emoteendstuff" .. character.Name)
+
+    task.spawn(function()
+        local startTime = os.clock()
+        while true do
+            task.wait()
+            if os.clock() - startTime >= 0.5 or not (rockClone and rockClone.Parent) then
+                break
+            end
+            if character.PrimaryPart then
+                rockClone.CFrame = character.PrimaryPart.CFrame * CFrame.new(0, -1.5, 4)
+            end
+        end
+    end)
+end
+
+-- Animaciones
+local anim1 = Instance.new("Animation")
+anim1.AnimationId = "rbxassetid://78615192673057"
+local track1 = humanoid:LoadAnimation(anim1)
+track1:Play()
+
+local anim2 = Instance.new("Animation")
+anim2.AnimationId = "rbxassetid://123794818363362"
+local track2 = nil
+
+track1.Stopped:Connect(function()
+    track2 = humanoid:LoadAnimation(anim2)
+    track2:Play()
+end)
+
+-- Limpieza después de 10 segundos
+task.delay(10, function()
+    for _, obj in pairs(objectsToClean) do
+        if obj and obj.Parent then
+            obj:Destroy()
+        end
+    end
+    
+    if sound and sound.Parent then
+        sound:Stop()
+        sound:Destroy()
+    end
+    
+    if track2 then
+        track2:Stop()
+    end
+    if track1 then
+        track1:Stop()
+    end
+end)

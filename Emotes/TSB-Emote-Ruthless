@@ -1,0 +1,22 @@
+local v811 = game:GetService("Players").LocalPlayer
+                local v812 = v811.Character or v811.CharacterAdded:Wait()
+                local v813 = v812:WaitForChild("Humanoid")
+                local v814 = Instance.new("Animation")
+                v814.AnimationId = "rbxassetid://129295156336675"
+                v813:LoadAnimation(v814):Play()
+                local v815 = Instance.new("Sound")
+                v815.SoundId = "rbxassetid://108336805340224"
+                v815.Volume = 2
+                v815.Parent = v812:FindFirstChild("HumanoidRootPart") or v812.PrimaryPart
+                v815:Play()
+                local v816 = Instance.new("Folder")
+                v816.Name = "RuthlessBind"
+                v816.Parent = v812
+                v816:SetAttribute("EmoteProperty", true)
+                require(game.ReplicatedStorage.Emotes.VFX):MainFunction({
+                    Character = v812,
+                    vfxName = "Ruthless",
+                    SpecificModule = game.ReplicatedStorage.Emotes.VFX,
+                    AnimSent = 129295156336675,
+                    RealBind = v816
+                })

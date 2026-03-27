@@ -1,0 +1,93 @@
+local v388 = game:GetService("Players")
+                local v389 = game:GetService("ReplicatedStorage")
+                local v390 = v389:WaitForChild("Replication")
+                local v391 = v388.LocalPlayer
+                local vu392 = v391.Character or v391.CharacterAdded:Wait()
+                local vu393 = v389.Emotes.RockThrow:Clone()
+                local v394 = vu393
+                vu393.SetAttribute(v394, "EmoteProperty", true)
+                vu393.Name = "Rock"
+                vu393.Parent = vu392
+                local v395 = vu393
+                local v396 = vu393.WaitForChild(v395, "Rock")
+                v396:SetAttribute("EmoteProperty", true)
+                v396.Name = "Rock"
+                v396.Part0 = vu392.PrimaryPart
+                v396.Part1 = vu393
+                v396.Parent = vu392.PrimaryPart
+                local v397 = {
+                    rock = vu393
+                }
+                task.delay(0.573, function()
+                    if vu393 and vu393.Parent then
+                        local v398 = Instance.new("Sound")
+                        v398.SoundId = "rbxassetid://91571189388577"
+                        v398.Volume = 1
+                        v398.RollOffMaxDistance = 100
+                        v398.Parent = vu393
+                        v398:Play()
+                    end
+                end)
+                local v399 = Instance.new("Animation")
+                v399.AnimationId = "rbxassetid://123464270068243"
+                vu392:WaitForChild("Humanoid"):LoadAnimation(v399):Play()
+                local vu400 = vu392:FindFirstChild("Torso") or vu392:FindFirstChild("UpperTorso")
+                if vu400 then
+                    local v401 = Instance.new("Sound")
+                    v401.SoundId = "rbxassetid://104813362309681"
+                    v401.Volume = 1
+                    v401.Parent = vu400
+                    v401:Play()
+                    task.delay(0.01, function()
+                        local v402 = Instance.new("Sound")
+                        v402.SoundId = "rbxassetid://103206475338370"
+                        v402.Volume = 0.8
+                        v402.Parent = vu400
+                        v402:Play()
+                    end)
+                end
+                local v403, v404, v405 = pairs(v388:GetPlayers())
+                local v406 = {}
+                while true do
+                    local v407
+                    v405, v407 = v403(v404, v405)
+                    if v405 == nil then
+                        break
+                    end
+                    if v407 ~= v391 then
+                        table.insert(v406, v407)
+                    end
+                end
+                local v408 = nil
+                local vu409
+                if # v406 <= 0 then
+                    vu409 = workspace:FindFirstChild("Live")
+                    if vu409 then
+                        vu409 = workspace.Live:FindFirstChild("Weakest Dummy")
+                    end
+                    if not (vu409 and vu409:IsA("Model")) then
+                        vu409 = v408
+                    end
+                else
+                    vu409 = v406[math.random(1, # v406)].UserId
+                end
+                task.wait(2.4)
+                local v410, v411, v412 = pairs(getconnections(v390.OnClientEvent))
+                while true do
+                    local vu413
+                    v412, vu413 = v410(v411, v412)
+                    if v412 == nil then
+                        break
+                    end
+                    if vu413.Function then
+                        pcall(function()
+                            local v414 = {
+                                Effect = "Best Brother",
+                                char = vu392,
+                                Id = vu409
+                            }
+                            vu413.Function(v414)
+                        end)
+                    end
+                end
+                v397.rock.Transparency = 1

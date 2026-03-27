@@ -1,0 +1,132 @@
+local vu493 = game:GetService("Players").LocalPlayer
+                local vu494 = vu493.Character or vu493.CharacterAdded:Wait()
+                local v495 = vu494:WaitForChild("Humanoid")
+                local vu496 = game:GetService("CollectionService")
+                local vu497 = Instance.new("Sound")
+                vu497.SoundId = "rbxassetid://82078299414169"
+                vu497.Volume = 1
+                vu497.Looped = true
+                vu497.Parent = vu494:FindFirstChild("HumanoidRootPart") or vu494.PrimaryPart
+                vu497:Play()
+                local v498 = Instance.new("Animation")
+                v498.AnimationId = "rbxassetid://121440687354239"
+                local vu499 = v495:LoadAnimation(v498)
+                vu499.Looped = true
+                vu499:Play()
+                local v500 = script.BladesOfJade
+                if v500 then
+                    local vu501 = {}
+                    local function v503(p502)
+                        p502:SetAttribute("EmoteProperty", true)
+                        table.insert(vu501, p502)
+                        vu496:AddTag(p502, "emoteendstuff" .. vu493.Name)
+                    end
+                    local v504, v505, v506 = pairs(v500.Attach:GetChildren())
+                    local vu507 = vu501
+                    while true do
+                        local v508
+                        v506, v508 = v504(v505, v506)
+                        if v506 == nil then
+                            break
+                        end
+                        local v509 = v508:Clone()
+                        v509.Parent = vu494:WaitForChild("Head")
+                        v503(v509)
+                    end
+                    local v510, v511, v512 = pairs({
+                        v500.JadeL,
+                        v500.JadeR
+                    })
+                    while true do
+                        local v513
+                        v512, v513 = v510(v511, v512)
+                        if v512 == nil then
+                            break
+                        end
+                        local v514 = v513:Clone()
+                        v503(v514)
+                        local v515 = v514:FindFirstChildOfClass("Motor6D")
+                        v503(v515)
+                        local v516 = vu494["Right Arm"]
+                        if v513.Name == "JadeL" then
+                            v516 = vu494["Left Arm"]
+                        end
+                        v515.Part0 = v516
+                        v515.Part1 = v514.ChainPart1
+                        v515.Parent = v516
+                        v514.Parent = vu494
+                        v515.Name = "ChainPart1"
+                    end
+                    local v517 = v500.Part:FindFirstChild("ClashVFX")
+                    if v517 then
+                        local v518 = v517:Clone()
+                        v518.Parent = vu494.PrimaryPart
+                        v503(v518)
+                    end
+                    local vu519 = RaycastParams.new()
+                    vu519.FilterType = Enum.RaycastFilterType.Exclude
+                    vu519.FilterDescendantsInstances = {
+                        workspace:FindFirstChild("Thrown"),
+                        workspace:FindFirstChild("Live")
+                    }
+                    local function v530()
+                        local v520 = vu494
+                        local v521, v522, v523 = pairs(v520:GetDescendants())
+                        while true do
+                            local v524
+                            v523, v524 = v521(v522, v523)
+                            if v523 == nil then
+                                break
+                            end
+                            if (tostring(v524) == "JadeL" or tostring(v524) == "JadeR") and v524:IsA("Model") then
+                                local v525, v526, v527 = pairs(v524:GetDescendants())
+                                while true do
+                                    local v528
+                                    v527, v528 = v525(v526, v527)
+                                    if v527 == nil then
+                                        break
+                                    end
+                                    if v528:IsA("ParticleEmitter") then
+                                        local v529 = tostring(v528) == "smoke" and workspace:Raycast(vu494.PrimaryPart.Position, Vector3.new(0, - 10, 0), vu519)
+                                        if v529 then
+                                            v528.Color = ColorSequence.new(v529.Instance.Color)
+                                        end
+                                        v528:Emit(v528:GetAttribute("EmitCount") or 10)
+                                    end
+                                end
+                            end
+                        end
+                    end
+                    vu499:GetMarkerReachedSignal("floorhit"):Connect(v530)
+                    vu499:GetMarkerReachedSignal("touchfloor"):Connect(function()
+                        local v531 = vu494.PrimaryPart:FindFirstChild("ClashVFX")
+                        if v531 then
+                            local v532, v533, v534 = pairs(v531:GetDescendants())
+                            while true do
+                                local v535
+                                v534, v535 = v532(v533, v534)
+                                if v534 == nil then
+                                    break
+                                end
+                                if v535:IsA("ParticleEmitter") then
+                                    v535:Emit(v535:GetAttribute("EmitCount") or 10)
+                                end
+                            end
+                        end
+                    end)
+                    task.delay(10, function()
+                        vu499:Stop()
+                        vu497:Stop()
+                        local v536, v537, v538 = pairs(vu507)
+                        while true do
+                            local v539
+                            v538, v539 = v536(v537, v538)
+                            if v538 == nil then
+                                break
+                            end
+                            if v539 and v539.Parent then
+                                v539:Destroy()
+                            end
+                        end
+                    end)
+                end

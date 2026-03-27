@@ -1,0 +1,46 @@
+local v238 = game:GetService("Players")
+                local vu239 = game:GetService("ReplicatedStorage")
+                local vu240 = v238.LocalPlayer.Character
+                local vu241 = game:GetService("CollectionService")
+                local v242 = Instance.new("Animation")
+                v242.AnimationId = "rbxassetid://103668868712897"
+                vu240.Humanoid:LoadAnimation(v242):Play()
+                task.delay(0.1, function()
+                    local vu243 = Instance.new("Accessory")
+                    vu243.Name = "#EmoteHolder_" .. math.random(1, 100000)
+                    vu243.Parent = vu240
+                    vu241:AddTag(vu243, "emoteendstuff" .. vu240.Name)
+                    require(vu239.Emotes.VFX):MainFunction({
+                        Character = vu240,
+                        vfxName = "True Aura",
+                        SpecificModule = vu239.Emotes.VFX,
+                        AnimSent = 103668868712897,
+                        RealBind = vu243
+                    })
+                    local vu244 = vu240.PrimaryPart
+                    if tostring(vu240) == "YungCrepetics" then
+                        task.delay(6.3, function()
+                            if vu243 and vu243.Parent then
+                                local v245, v246, v247 = pairs(workspace:GetPartBoundsInRadius(vu244.Position, 40))
+                                while true do
+                                    local v248
+                                    v247, v248 = v245(v246, v247)
+                                    if v247 == nil then
+                                        break
+                                    end
+                                    local _ = v248:GetAttribute("IsTree") or v248.Name == "TreeRoot"
+                                    local v249 = v248.Parent:FindFirstChildOfClass("Humanoid")
+                                    if v249 and v249.Name ~= "FakeHumanoid" then
+                                        local _ = v249 == vu240.Humanoid
+                                    end
+                                end
+                            end
+                        end)
+                    end
+                    local v250 = Instance.new("Sound")
+                    v250.SoundId = "rbxassetid://83049960731792"
+                    v250.Volume = 3
+                    v250.Looped = false
+                    v250.Parent = vu240:FindFirstChild("Torso")
+                    v250:Play()
+                end)

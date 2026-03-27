@@ -1,0 +1,22 @@
+local v915 = game:GetService("Players").LocalPlayer
+                local v916 = v915.Character or v915.CharacterAdded:Wait()
+                local v917 = v916:WaitForChild("Humanoid")
+                local v918 = Instance.new("Animation")
+                v918.AnimationId = "rbxassetid://136363608783208"
+                v917:LoadAnimation(v918):Play()
+                local v919 = Instance.new("Sound")
+                v919.SoundId = "rbxassetid://131083520587944"
+                v919.Volume = 2
+                v919.Parent = v916:FindFirstChild("HumanoidRootPart") or v916.PrimaryPart
+                v919:Play()
+                local v920 = Instance.new("Folder")
+                v920.Name = "RuthlessBind"
+                v920.Parent = v916
+                v920:SetAttribute("EmoteProperty", true)
+                require(game.ReplicatedStorage.Emotes.VFX):MainFunction({
+                    Character = v916,
+                    vfxName = "Dragon Combo",
+                    SpecificModule = game.ReplicatedStorage.Emotes.VFX,
+                    AnimSent = 136363608783208,
+                    RealBind = v920
+                })

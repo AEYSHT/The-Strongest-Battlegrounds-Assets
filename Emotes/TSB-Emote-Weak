@@ -1,0 +1,22 @@
+local v805 = game:GetService("Players").LocalPlayer
+                local v806 = v805.Character or v805.CharacterAdded:Wait()
+                local v807 = v806:WaitForChild("Humanoid")
+                local v808 = Instance.new("Animation")
+                v808.AnimationId = "rbxassetid://93125757361125"
+                v807:LoadAnimation(v808):Play()
+                local v809 = Instance.new("Sound")
+                v809.SoundId = "rbxassetid://128113260968190"
+                v809.Volume = 3
+                v809.Parent = v806:FindFirstChild("HumanoidRootPart") or v806.PrimaryPart
+                v809:Play()
+                local v810 = Instance.new("Folder")
+                v810.Name = "PrideBind"
+                v810.Parent = v806
+                v810:SetAttribute("EmoteProperty", true)
+                require(game:GetService("ReplicatedStorage").Emotes.VFX):MainFunction({
+                    Character = v806,
+                    vfxName = "Weak",
+                    SpecificModule = game:GetService("ReplicatedStorage").Emotes.VFX,
+                    AnimSent = 93125757361125,
+                    RealBind = v810
+                })

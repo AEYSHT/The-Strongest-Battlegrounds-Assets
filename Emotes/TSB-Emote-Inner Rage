@@ -1,0 +1,219 @@
+local v67 = Color3.fromRGB(math.random(0, 255), math.random(0, 255), math.random(0, 255))
+                local vu68 = {}
+                local v69 = Instance.new("Animation")
+                v69.AnimationId = "rbxassetid://96993907314948"
+                local v70 = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(v69)
+                v70:Play()
+                v70.Stopped:Connect(function()
+                    local v71 = Instance.new("Animation")
+                    v71.AnimationId = "rbxassetid://127234845846317"
+                    game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(v71):Play()
+                end)
+                local vu72 = Instance.new("Accessory")
+                vu72.Name = "#EmoteHolder_" .. math.random(1, 100000)
+                vu72.Parent = game.Players.LocalPlayer.Character
+                game:GetService("CollectionService"):AddTag(vu72, "emoteendstuff" .. game.Players.LocalPlayer.Character.Name)
+                require(game.ReplicatedStorage.Emotes.VFX):MainFunction({
+                    Character = game.Players.LocalPlayer.Character,
+                    vfxName = "Energy Explosion",
+                    AnimSent = 96993907314948,
+                    RealBind = vu72,
+                    NoInsertion = true,
+                    Colour = v67
+                })
+                local vu73 = {}
+                local vu74 = {}
+                local vu75 = {}
+                task.delay(1.3, function()
+                    if vu72 and vu72.Parent then
+                        (function()
+                            local v76, v77, v78 = pairs(game.Players.LocalPlayer.Character.FakeHead:GetChildren())
+                            while true do
+                                local v79
+                                v78, v79 = v76(v77, v78)
+                                if v78 == nil then
+                                    break
+                                end
+                                if v79:IsA("Accessory") and v79:FindFirstChild("Handle") and v79:FindFirstChild("Handle"):FindFirstChild("HairAttachment") then
+                                    local v80 = v79:FindFirstChild("Handle")
+                                    table.insert(vu74, v80)
+                                    local v81, v82, v83 = pairs(v80:GetChildren())
+                                    while true do
+                                        local v84
+                                        v83, v84 = v81(v82, v83)
+                                        if v83 == nil then
+                                            break
+                                        end
+                                        if v84:IsA("SpecialMesh") then
+                                            v84:SetAttribute("basetext", v84.TextureId)
+                                        end
+                                    end
+                                end
+                            end
+                            local v85, v86, v87 = pairs(vu74)
+                            while true do
+                                local v88
+                                v87, v88 = v85(v86, v87)
+                                if v87 == nil then
+                                    break
+                                end
+                                local v89 = v88:Clone()
+                                table.insert(vu73, v89)
+                                local v90 = Instance.new("Weld")
+                                v90.Part0 = v89
+                                v90.Part1 = v88
+                                v90.Parent = v89
+                                v89.Parent = game.Workspace.Thrown
+                                v88.Transparency = 1
+                                game:GetService("TweenService"):Create(v88, TweenInfo.new(0.25, Enum.EasingStyle.Sine), {
+                                    Transparency = 0
+                                }):Play()
+                                local v91 = v88:FindFirstChildOfClass("SpecialMesh")
+                                if v91 then
+                                    v91.TextureId = ""
+                                    local v92 = game.ReplicatedStorage.Resources.DeathEffect.Template:Clone()
+                                    v92.Color3 = Color3.new(v3189.R * 5, v3189.G * 5, v3189.B * 5)
+                                    v92.Parent = v89
+                                end
+                            end
+                            local v93 = {
+                                hairs = vu74,
+                                destroy = vu73
+                            }
+                            vu68[game.Players.LocalPlayer.Character] = v93
+                        end)()
+                        task.delay(200, function()
+                            local v94, v95, v96 = pairs(vu73)
+                            while true do
+                                local v97
+                                v96, v97 = v94(v95, v96)
+                                if v96 == nil then
+                                    break
+                                end
+                                game:GetService("TweenService"):Create(v97, TweenInfo.new(0.1), {
+                                    Transparency = 1
+                                }):Play()
+                                game.Debris:AddItem(v97, 0.5)
+                            end
+                            local v98, v99, v100 = pairs(vu74)
+                            while true do
+                                local v101
+                                v100, v101 = v98(v99, v100)
+                                if v100 == nil then
+                                    break
+                                end
+                                if not game.Players.LocalPlayer.Character:GetAttribute("InMech") then
+                                    game:GetService("TweenService"):Create(v101, TweenInfo.new(0.1), {
+                                        Transparency = 0
+                                    }):Play()
+                                end
+                                local v102, v103, v104 = pairs(v101:GetChildren())
+                                while true do
+                                    local v105
+                                    v104, v105 = v102(v103, v104)
+                                    if v104 == nil then
+                                        break
+                                    end
+                                    if v105:IsA("SpecialMesh") or v105:IsA("MeshPart") then
+                                        v105.TextureId = v105:GetAttribute("basetext")
+                                    end
+                                end
+                            end
+                        end)
+                        local vu106 = Instance.new("Folder")
+                        vu106.Name = "AuraHolder"
+                        local v107 = vu106
+                        vu106.SetAttribute(v107, "LimAura", true)
+                        local v108 = vu106
+                        vu106.SetAttribute(v108, "EmoteEffect", true)
+                        vu106.Parent = game.Players.LocalPlayer.Character
+                        task.delay(203, function()
+                            if vu106 then
+                                vu106:Destroy()
+                            end
+                        end)
+                        local v109, v110, v111 = pairs(game.ReplicatedStorage.Emotes.AuraReal:GetChildren())
+                        local v112 = {}
+                        while true do
+                            local v113
+                            v111, v113 = v109(v110, v111)
+                            if v111 == nil then
+                                break
+                            end
+                            local vu114 = v113:Clone()
+                            local v115 = vu114
+                            vu114.SetAttribute(v115, "LimAura", true)
+                            table.insert(v112, vu114)
+                            task.delay(203, function()
+                                if vu114 then
+                                    vu114:Destroy()
+                                end
+                            end)
+                            local v116 = vu114
+                            if vu114.IsA(v116, "Attachment") then
+                                vu114.Parent = game.Players.LocalPlayer.Character.PrimaryPart
+                            else
+                                local v117 = vu114
+                                if vu114.IsA(v117, "PointLight") then
+                                end
+                                local v118 = Instance.new("Weld")
+                                v118.Part0 = game.Players.LocalPlayer.Character.PrimaryPart
+                                v118.Part1 = vu114
+                                v118.Parent = vu114
+                            end
+                            local v119 = vu114
+                            local v120, v121, v122 = pairs(vu114.GetDescendants(v119))
+                            while true do
+                                local vu123
+                                v122, vu123 = v120(v121, v122)
+                                if v122 == nil then
+                                    break
+                                end
+                                if vu123:IsA("ParticleEmitter") or vu123:IsA("PointLight") then
+                                    vu123.Enabled = false
+                                    table.insert(vu75, vu123)
+                                    vu123:SetAttribute("LimitedAura", true)
+                                    vu123:SetAttribute("InnerRageAura", true)
+                                    if vu123:IsA("ParticleEmitter") or vu123:IsA("Beam") then
+                                        vu123.Color = ColorSequence.new(Color3.new(v3189.R, v3189.G, v3189.B))
+                                    end
+                                    if vu123:IsA("PointLight") or (vu123:IsA("SpotLight") or vu123:IsA("SurfaceLight")) then
+                                        vu123.Brightness = vu123.Brightness * 1.3
+                                        vu123.Color = Color3.new(v3189.R * 1.3, v3189.G * 1.3, v3189.B * 1.3)
+                                    end
+                                    task.delay(200, function()
+                                        vu123.Enabled = false
+                                    end)
+                                end
+                            end
+                        end
+                    end
+                end)
+                task.delay(5.3, function()
+                    if vu72 and vu72.Parent then
+                        local v124, v125, v126 = pairs(vu75)
+                        while true do
+                            local v127
+                            v126, v127 = v124(v125, v126)
+                            if v126 == nil then
+                                break
+                            end
+                            v127.Enabled = true
+                        end
+                        wait(0.05)
+                        local v128, v129, v130 = pairs(game.Players.LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks())
+                        while true do
+                            local v131
+                            v130, v131 = v128(v129, v130)
+                            if v130 == nil then
+                                break
+                            end
+                            if v131.Animation.AnimationId == "rbxassetid://127234845846317" then
+                                v131:Stop()
+                                local v132 = Instance.new("Animation")
+                                v132.AnimationId = "rbxassetid://117177504280717"
+                                game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(v132):Play()
+                            end
+                        end
+                    end
+                end)

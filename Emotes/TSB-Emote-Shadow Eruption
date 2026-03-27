@@ -1,0 +1,108 @@
+local vu133 = game:GetService("Players").LocalPlayer.Character
+                local v134 = {
+                    {
+                        SoundId = "rbxassetid://117425361961655",
+                        Volume = 0,
+                        ParentTorso = true
+                    }
+                }
+                local v135, v136, v137 = pairs(v134)
+                while true do
+                    local vu138
+                    v137, vu138 = v135(v136, v137)
+                    if v137 == nil then
+                        break
+                    end
+                    task.delay(v137, function()
+                        local v139 = Instance.new("Sound")
+                        v139.SoundId = vu138.SoundId
+                        v139.Volume = vu138.Volume or 1
+                        v139.Looped = vu138.Looped or false
+                        v139.Parent = vu138.ParentTorso and vu133:FindFirstChild("Torso") or workspace
+                        v139:Play()
+                    end)
+                end
+                local v140 = Instance.new("Animation")
+                v140.AnimationId = "rbxassetid://121032789756540"
+                vu133.Humanoid:LoadAnimation(v140):Play()
+                task.delay(0.1, function()
+                    local v141 = Instance.new("Accessory")
+                    v141.Name = "#EmoteHolder_" .. math.random(1, 100000)
+                    v141.Parent = vu133
+                    require(game.ReplicatedStorage.Emotes.VFX):MainFunction({
+                        Character = vu133,
+                        vfxName = "Shadow Eruption",
+                        SpecificModule = game.ReplicatedStorage.Emotes.VFX,
+                        AnimSent = 121032789756540,
+                        RealBind = v141
+                    })
+                end)
+                task.delay(8.1, function()
+                    if vu133 and vu133.Parent and workspace.Live:FindFirstChild(tostring(vu133)) then
+                        local v142 = Instance.new("Folder")
+                        v142.Name = "AuraHolder"
+                        v142.Parent = vu133
+                        local v143 = script.auraNew
+                        local v144, v145, v146 = pairs(v143:GetChildren())
+                        while true do
+                            local v147
+                            v146, v147 = v144(v145, v146)
+                            if v146 == nil then
+                                break
+                            end
+                            if vu133:FindFirstChild(v147.Name) then
+                                local vu148 = v147:Clone()
+                                vu148.Parent = v142
+                                local v149 = vu148
+                                vu148.SetAttribute(v149, "LimitedAura", true)
+                                task.delay(65, function()
+                                    if vu148 and vu148.Parent then
+                                        vu148:Destroy()
+                                    end
+                                end)
+                                local v150 = vu148
+                                local v151, v152, v153 = pairs(vu148.GetDescendants(v150))
+                                while true do
+                                    local vu154
+                                    v153, vu154 = v151(v152, v153)
+                                    if v153 == nil then
+                                        break
+                                    end
+                                    if vu154:IsA("Trail") or (vu154:IsA("Beam") or vu154:IsA("ParticleEmitter")) then
+                                        vu154.Enabled = true
+                                        task.delay(60, function()
+                                            vu154.Enabled = false
+                                        end)
+                                    end
+                                end
+                            end
+                        end
+                        local vu155 = Instance.new("Sound")
+                        vu155.SoundId = "rbxassetid://128082194939921"
+                        vu155.Looped = true
+                        vu155.Volume = 1
+                        vu155.Parent = vu133:FindFirstChild("Torso")
+                        local v156 = vu155
+                        vu155.Play(v156)
+                        game.Debris:AddItem(vu155, 80)
+                        task.delay(60, function()
+                            game:GetService("TweenService"):Create(vu155, TweenInfo.new(1), {
+                                Volume = 0
+                            }):Play()
+                            game.Debris:AddItem(vu155, 1.2)
+                            local v157 = vu133
+                            local v158, v159, v160 = pairs(v157:GetDescendants())
+                            while true do
+                                local v161
+                                v160, v161 = v158(v159, v160)
+                                if v160 == nil then
+                                    break
+                                end
+                                if v161:GetAttribute("aura") then
+                                    v161.Enabled = false
+                                    game.Debris:AddItem(v161, 5)
+                                end
+                            end
+                        end)
+                    end
+                end)

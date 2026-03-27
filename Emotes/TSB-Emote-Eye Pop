@@ -1,0 +1,61 @@
+local vu729 = game:GetService("Players").LocalPlayer
+                local v730 = vu729.Character or vu729.CharacterAdded:Wait()
+                local v731 = v730:WaitForChild("Humanoid")
+                local vu732 = game:GetService("CollectionService")
+                local vu733 = Instance.new("Sound")
+                vu733.SoundId = "rbxassetid://17097414525"
+                vu733.Volume = 1
+                vu733.Looped = true
+                vu733.Parent = v730:FindFirstChild("Torso") or v730.PrimaryPart
+                vu733:Play()
+                local v734 = Instance.new("Animation")
+                v734.AnimationId = "rbxassetid://17097409396"
+                local vu735 = v731:LoadAnimation(v734)
+                vu735.Looped = false
+                local v736 = vu735
+                vu735.Play(v736)
+                local vu737 = {}
+                local function v739(p738)
+                    p738:SetAttribute("EmoteProperty", true)
+                    table.insert(vu737, p738)
+                    vu732:AddTag(p738, "emoteendstuff" .. vu729.Name)
+                end
+                local v740 = {}
+                local v741 = script.Leye1:Clone()
+                v739(v741)
+                v740.Handle = v741
+                local v742 = v741.m6d
+                v739(v742)
+                v740.md = v742
+                v742.Part0 = v730.Head
+                v742.Part1 = v741
+                v742.Name = "Leye1"
+                v742.Parent = v730.Head
+                v741.Parent = v730
+                local v743 = script.Reye1:Clone()
+                v739(v743)
+                v740.Handle = v743
+                local v744 = v743.m6d
+                v739(v744)
+                v740.md = v744
+                v744.Part0 = v730.Head
+                v744.Part1 = v743
+                v744.Name = "Reye1"
+                v744.Parent = v730.Head
+                v743.Parent = v730
+                local function v749()
+                    vu735:Stop()
+                    vu733:Stop()
+                    local v745, v746, v747 = pairs(vu737)
+                    while true do
+                        local v748
+                        v747, v748 = v745(v746, v747)
+                        if v747 == nil then
+                            break
+                        end
+                        if v748 and v748.Parent then
+                            v748:Destroy()
+                        end
+                    end
+                end
+                vu735.Stopped:Connect(v749)

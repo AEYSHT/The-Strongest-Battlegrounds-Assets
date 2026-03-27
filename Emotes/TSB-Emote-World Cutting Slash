@@ -1,0 +1,107 @@
+local v322 = game:GetService("Players")
+                local vu323 = game:GetService("ReplicatedStorage")
+                local vu324 = game:GetService("TweenService")
+                local vu325 = game:GetService("Debris")
+                local vu326 = v322.LocalPlayer.Character
+                local v327 = Instance.new("Animation")
+                v327.AnimationId = "rbxassetid://120001337057214"
+                local vu328 = vu326.Humanoid:LoadAnimation(v327)
+                local v329 = vu328
+                vu328.Play(v329)
+                task.delay(0.1, function()
+                    local vu330 = Instance.new("Accessory")
+                    vu330.Name = "#EmoteHolder_" .. math.random(1, 100000)
+                    vu330.Parent = vu326
+                    local v331 = vu330
+                    vu330.SetAttribute(v331, "EmoteProperty", true)
+                    require(vu323.Emotes.VFX):MainFunction({
+                        Character = vu326,
+                        vfxName = "HugeSlash",
+                        SpecificModule = vu323.Emotes.VFX,
+                        AnimSent = 120001337057214,
+                        RealBind = vu330,
+                        CanRotate = true
+                    })
+                    local vu355 = vu328:GetMarkerReachedSignal("fifth"):Once(function()
+                        if vu330 and vu330.Parent then
+                            local v332 = vu326.PrimaryPart.CFrame
+                            vu326:SetAttribute("ForcedCFrame", v332)
+                            local vu333 = Instance.new("Part")
+                            vu333.Size = Vector3.new(55, 35, 10)
+                            vu333.Transparency = 1
+                            vu333.BrickColor = BrickColor.new("Really red")
+                            vu333.Anchored = true
+                            vu333.CanCollide = false
+                            vu333.CanQuery = false
+                            vu333.CanTouch = false
+                            vu333.CFrame = v332 * CFrame.new(0, - 10, - 4)
+                            vu333.Parent = workspace:FindFirstChild("Thrown") or workspace
+                            vu325:AddItem(vu333, 1)
+                            vu324:Create(vu333, TweenInfo.new(0.19, Enum.EasingStyle.Linear), {
+                                CFrame = v332 * CFrame.new(0, - 10, - 114)
+                            }):Play()
+                            local vu334 = {}
+                            local function v342()
+                                local v335, v336, v337 = pairs(workspace:GetPartsInPart(vu333, OverlapParams.new()))
+                                local v338 = {}
+                                while true do
+                                    local v339
+                                    v337, v339 = v335(v336, v337)
+                                    if v337 == nil then
+                                        break
+                                    end
+                                    local v340 = v339.Parent:FindFirstChildOfClass("Humanoid")
+                                    local v341 = v339.Parent:FindFirstChildOfClass("ForceField")
+                                    if v340 and (v340.Name ~= "FakeHumanoid" and (not v341 and (v340 ~= vu326.Humanoid and not table.find(vu334, v340.Parent)))) then
+                                        table.insert(v338, v340.Parent)
+                                        table.insert(vu334, v340.Parent)
+                                    end
+                                end
+                                return v338
+                            end
+                            local v343 = tick()
+                            while task.wait() and (vu333 and (vu333.Parent and (vu330 and (vu330.Parent and tick() - v343 <= 1)))) do
+                                local v344 = v342()
+                                local v345, v346, v347 = pairs(v344)
+                                while true do
+                                    local v348
+                                    v347, v348 = v345(v346, v347)
+                                    if v347 == nil then
+                                        break
+                                    end
+                                    local v349 = v348:FindFirstChild("Humanoid")
+                                    local v350 = v348:FindFirstChild("HumanoidRootPart")
+                                    if v349 and (v349.Health <= 0 and v350) then
+                                        shared.sfx({
+                                            SoundId = "rbxassetid://74053599625174",
+                                            Volume = 5,
+                                            CFrame = v350.CFrame
+                                        }):Play()
+                                        local v351, v352, v353 = pairs(v348:GetDescendants())
+                                        while true do
+                                            local v354
+                                            v353, v354 = v351(v352, v353)
+                                            if v353 == nil then
+                                                break
+                                            end
+                                            if v354:IsA("BallSocketConstraint") or v354:IsA("Weld") then
+                                                v354:Destroy()
+                                            end
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                    end)
+                    task.delay(4, function()
+                        if vu355 then
+                            vu355:Disconnect()
+                        end
+                    end)
+                    local v356 = Instance.new("Sound")
+                    v356.SoundId = "rbxassetid://103835306879590"
+                    v356.Volume = 3
+                    v356.Looped = false
+                    v356.Parent = vu326:FindFirstChild("Torso") or vu326.PrimaryPart
+                    v356:Play()
+                end)

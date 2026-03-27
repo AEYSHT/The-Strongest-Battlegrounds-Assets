@@ -1,0 +1,98 @@
+local v205 = game:GetService("Players")
+                local vu206 = game:GetService("TweenService")
+                local vu207 = game:GetService("ReplicatedStorage")
+                local vu208 = game:GetService("Debris")
+                local vu209 = v205.LocalPlayer.Character
+                local v210 = Instance.new("Animation")
+                v210.AnimationId = "rbxassetid://107649573628906"
+                vu209.Humanoid:LoadAnimation(v210):Play()
+                local vu211 = nil
+                local vu212 = nil
+                task.delay(0.1, function()
+                    vu211 = Instance.new("Accessory")
+                    vu211.Name = "#EmoteHolder_" .. math.random(1, 100000)
+                    vu211.Parent = vu209
+                    vu211:SetAttribute("EmoteProperty", true)
+                    require(vu207.Emotes.VFX):MainFunction({
+                        Character = vu209,
+                        vfxName = "Boundless Rage",
+                        SpecificModule = vu207.Emotes.VFX,
+                        AnimSent = 107649573628906,
+                        RealBind = vu211
+                    })
+                    vu212 = Instance.new("Folder")
+                    vu212.Name = "NoRotate"
+                    vu212.Parent = vu209
+                    vu212:SetAttribute("EmoteProperty", true)
+                end)
+                task.delay(4, function()
+                    if vu209 and vu209.Parent and workspace.Live:FindFirstChild(tostring(vu209)) then
+                        local v213 = vu207.Emotes.VFX.VfxMods.Boundless.vfx.AuraChar:Clone()
+                        vu208:AddItem(v213, 5)
+                        if vu212 and vu212.Parent then
+                            vu212:Destroy()
+                        end
+                        local vu214 = Instance.new("Sound")
+                        vu214.SoundId = "rbxassetid://81055990581650"
+                        vu214.Parent = vu209:FindFirstChild("Torso")
+                        vu214.Looped = true
+                        vu214.Volume = 1
+                        vu214.Name = "CrushEmoteAmbience"
+                        vu214:Play()
+                        local v215, v216, v217 = pairs(v213:GetChildren())
+                        while true do
+                            local v218
+                            v217, v218 = v215(v216, v217)
+                            if v217 == nil then
+                                break
+                            end
+                            if v218:IsA("BasePart") then
+                                local v219 = vu209:FindFirstChild(v218.Name)
+                                local v220, v221, v222 = pairs(v218:GetChildren())
+                                while true do
+                                    local v223
+                                    v222, v223 = v220(v221, v222)
+                                    if v222 == nil then
+                                        break
+                                    end
+                                    if v219 and (v223:IsA("Attachment") or v223:IsA("ParticleEmitter")) then
+                                        local vu224 = v223:Clone()
+                                        vu224.Parent = v219
+                                        local v225 = vu224
+                                        vu224.SetAttribute(v225, "LimitedAura", true)
+                                        task.delay(60, function()
+                                            vu206:Create(vu214, TweenInfo.new(0.5), {
+                                                Volume = 0
+                                            }):Play()
+                                            task.delay(0.75, function()
+                                                if vu214 and vu214.Parent then
+                                                    vu214:Destroy()
+                                                end
+                                            end)
+                                            if vu224:IsA("ParticleEmitter") then
+                                                vu224.Enabled = false
+                                            else
+                                                local v226 = vu224
+                                                local v227, v228, v229 = pairs(v226:GetChildren())
+                                                while true do
+                                                    local v230
+                                                    v229, v230 = v227(v228, v229)
+                                                    if v229 == nil then
+                                                        break
+                                                    end
+                                                    v230.Enabled = false
+                                                end
+                                            end
+                                        end)
+                                        task.delay(65, function()
+                                            if vu224 and vu224.Parent then
+                                                vu224:Destroy()
+                                            end
+                                        end)
+                                    end
+                                end
+                            end
+                        end
+                        v213:Destroy()
+                    end
+                end)

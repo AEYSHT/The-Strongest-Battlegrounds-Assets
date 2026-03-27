@@ -1,0 +1,8 @@
+local p = game.Players.LocalPlayer
+		local c, h = p.Character, p.Character:WaitForChild("Humanoid")
+		local a = Instance.new("Animation")
+		a.AnimationId = "rbxassetid://14611879113"
+		h:LoadAnimation(a):Play()
+		local s = Instance.new("Sound", c:WaitForChild("Head"))
+s.SoundId = "rbxassetid://14611894554"
+s:Play()

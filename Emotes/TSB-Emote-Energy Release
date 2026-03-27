@@ -1,0 +1,119 @@
+local v768 = game:GetService("Players")
+                game:GetService("Debris")
+                game:GetService("CollectionService")
+                local v769 = v768.LocalPlayer
+                local vu770 = v769.Character or v769.CharacterAdded:Wait()
+                local vu771 = {}
+                local v772 = Instance.new("Sound")
+                v772.SoundId = ({
+                    "rbxassetid://132683371495025",
+                    "rbxassetid://128900017804077"
+                })[math.random(1, 2)]
+                v772.Volume = 2
+                v772.Parent = vu770.PrimaryPart
+                v772:Play()
+                table.insert(vu771, v772)
+                local v773 = vu770
+                local v774 = vu770.WaitForChild(v773, "Humanoid")
+                local v775 = Instance.new("Animation")
+                v775.AnimationId = "rbxassetid://120953105100764"
+                local v776 = v774:LoadAnimation(v775)
+                v776:Play();
+                (function(pu777)
+                    if not pu777 then
+                        local vu778 = script["PowerupT Hing"]:Clone()
+                        vu778:SetAttribute("EmoteProperty", true)
+                        table.insert(vu771, vu778)
+                        vu778.Parent = vu770
+                        local v779 = Instance.new("Weld")
+                        v779.Part0 = vu770.PrimaryPart
+                        v779.Part1 = vu778
+                        v779.Parent = vu778
+                        task.wait(0.25)
+                        vu778.BurstAir.Burst:Emit(1)
+                        local v780, v781, v782 = pairs(vu778.Floor:GetChildren())
+                        while true do
+                            local v783
+                            v782, v783 = v780(v781, v782)
+                            if v782 == nil then
+                                break
+                            end
+                            if tostring(v783) ~= "Crack" then
+                                v783.Enabled = true
+                            end
+                        end
+                        task.delay(0.85, function()
+                            if not pu777 then
+                                for v784 = 1, 3 do
+                                    if pu777 then
+                                        return
+                                    end
+                                    local v785, v786, v787 = pairs(vu778.Lightning:GetChildren())
+                                    local _ = v784
+                                    while true do
+                                        local v788
+                                        v787, v788 = v785(v786, v787)
+                                        if v787 == nil then
+                                            break
+                                        end
+                                        if v787 == 3 then
+                                            v788.Enabled = true
+                                        else
+                                            v788:Emit(math.random(2, 5))
+                                        end
+                                    end
+                                    wait(v784 == 2 and 1.75 or 1)
+                                end
+                            end
+                        end)
+                        task.delay(4, function()
+                            if not pu777 then
+                                vu778.Floor.Crack:Emit(1)
+                                local v789, v790, v791 = pairs(vu778.Lightning:GetChildren())
+                                while true do
+                                    local v792
+                                    v791, v792 = v789(v790, v791)
+                                    if v791 == nil then
+                                        break
+                                    end
+                                    v792.Enabled = false
+                                end
+                                local v793, v794, v795 = pairs(vu778.BurstAir:GetChildren())
+                                while true do
+                                    local v796
+                                    v795, v796 = v793(v794, v795)
+                                    if v795 == nil then
+                                        break
+                                    end
+                                    if tostring(v796) ~= "Burst" then
+                                        v796:Emit(v796:GetAttribute("EmitCount") * 1.2)
+                                    end
+                                end
+                                local v797, v798, v799 = pairs(vu778.Floor:GetChildren())
+                                while true do
+                                    local v800
+                                    v799, v800 = v797(v798, v799)
+                                    if v799 == nil then
+                                        break
+                                    end
+                                    if tostring(v800) ~= "Crack" then
+                                        v800.Enabled = false
+                                    end
+                                end
+                            end
+                        end)
+                    end
+                end)(false)
+                v776.Stopped:Connect(function()
+                    local v801, v802, v803 = pairs(vu771)
+                    while true do
+                        local v804
+                        v803, v804 = v801(v802, v803)
+                        if v803 == nil then
+                            break
+                        end
+                        if v804 and v804.Parent then
+                            v804:Destroy()
+                        end
+                    end
+                end)

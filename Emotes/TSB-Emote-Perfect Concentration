@@ -1,0 +1,102 @@
+local vu678 = game:GetService("Players").LocalPlayer
+                local vu679 = vu678.Character or vu678.CharacterAdded:Wait()
+                local v680 = vu679:WaitForChild("Humanoid")
+                local vu681 = game:GetService("CollectionService")
+                game:GetService("Debris")
+                local vu682 = game:GetService("TweenService")
+                local vu683 = Instance.new("Sound")
+                vu683.SoundId = "rbxassetid://124276204137474"
+                vu683.Volume = 2
+                vu683.Looped = true
+                vu683.Parent = vu679:FindFirstChild("HumanoidRootPart") or vu679.PrimaryPart
+                vu683:Play()
+                local v684 = Instance.new("Animation")
+                v684.AnimationId = "rbxassetid://120577018823573"
+                local vu685 = v680:LoadAnimation(v684)
+                vu685.Looped = false
+                local v686 = vu685
+                vu685.Play(v686)
+                local v687 = Instance.new("Animation")
+                v687.AnimationId = "rbxassetid://102959457211902"
+                local vu688 = v680:LoadAnimation(v687)
+                vu688.Looped = true
+                local vu689 = {}
+                local function vu691(p690)
+                    p690:SetAttribute("EmoteProperty", true)
+                    table.insert(vu689, p690)
+                    vu681:AddTag(p690, "emoteendstuff" .. vu678.Name)
+                end
+                local function vu695(p692, p693)
+                    local v694 = Instance.new("WeldConstraint")
+                    v694.Part0 = p692
+                    v694.Part1 = p693
+                    v694.Parent = p693
+                end
+                local vu696 = script.Concentration
+                task.delay(0.35, function()
+                    if vu696 and vu679.PrimaryPart then
+                        local v697 = vu696.Impact:Clone()
+                        v697.Parent = workspace.Thrown
+                        vu691(v697)
+                        v697.CFrame = vu679.PrimaryPart.CFrame * v697:GetAttribute("Offset")
+                        vu695(vu679.PrimaryPart, v697)
+                        local vu698 = Instance.new("Highlight")
+                        vu698.Parent = vu679
+                        vu691(vu698)
+                        vu698.OutlineColor = Color3.fromRGB(84, 255, 113)
+                        vu698.FillColor = Color3.fromRGB(255, 255, 255)
+                        vu698.FillTransparency = 1
+                        vu698.OutlineTransparency = 1
+                        vu698.DepthMode = Enum.HighlightDepthMode.Occluded
+                        vu682:Create(vu698, TweenInfo.new(0.125, Enum.EasingStyle.Quint), {
+                            FillTransparency = 0.55,
+                            OutlineTransparency = 0
+                        }):Play()
+                        task.delay(0.2, function()
+                            if vu698 and vu698.Parent then
+                                vu682:Create(vu698, TweenInfo.new(0.35, Enum.EasingStyle.Quart), {
+                                    FillTransparency = 1,
+                                    OutlineTransparency = 1
+                                }):Play()
+                            end
+                        end)
+                    end
+                end)
+                task.delay(0.43, function()
+                    if vu696 and vu679.PrimaryPart then
+                        local v699, v700, v701 = pairs(vu696.Puzzle:GetDescendants())
+                        while true do
+                            local v702
+                            v701, v702 = v699(v700, v701)
+                            if v701 == nil then
+                                break
+                            end
+                            if v702:IsA("Part") then
+                                local v703 = v702:Clone()
+                                v703.Parent = workspace.Thrown
+                                vu691(v703)
+                                v703.CFrame = vu679.PrimaryPart.CFrame * v703:GetAttribute("Offset")
+                                vu695(vu679.PrimaryPart, v703)
+                            end
+                        end
+                    end
+                end)
+                vu685.Stopped:Connect(function()
+                    vu688:Play()
+                end)
+                task.delay(10, function()
+                    vu685:Stop()
+                    vu688:Stop()
+                    vu683:Stop()
+                    local v704, v705, v706 = pairs(vu689)
+                    while true do
+                        local v707
+                        v706, v707 = v704(v705, v706)
+                        if v706 == nil then
+                            break
+                        end
+                        if v707 and v707.Parent then
+                            v707:Destroy()
+                        end
+                    end
+                end)

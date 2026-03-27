@@ -1,0 +1,113 @@
+local vu610 = game:GetService("Players").LocalPlayer
+local vu611 = vu610.Character or vu610.CharacterAdded:Wait()
+local v612 = vu611:WaitForChild("Humanoid")
+local vu613 = game:GetService("CollectionService")
+local vu614 = game:GetService("Debris")
+
+local vu615 = Instance.new("Sound")
+vu615.SoundId = "rbxassetid://112089323132965"
+vu615.Volume = 2
+vu615.Parent = vu611:FindFirstChild("HumanoidRootPart") or vu611.PrimaryPart
+vu615:Play()
+
+local v616 = Instance.new("Animation")
+v616.AnimationId = "rbxassetid://106778226674700"
+local vu617 = v612:LoadAnimation(v616)
+vu617.Looped = false
+vu617:Play()
+
+local vu619 = {}
+
+local function vu621(p620)
+    p620:SetAttribute("EmoteProperty", true)
+    table.insert(vu619, p620)
+    vu613:AddTag(p620, "emoteendstuff" .. vu610.Name)
+end
+
+local vu622 = script.AmplifyVfx
+
+local function vu632(p623, p624, p625)
+    local v626 = vu622[p623]:Clone()
+    v626.Parent = p624
+    vu614:AddItem(v626, 5)
+    vu621(v626)
+    local v627 = v626:FindFirstChildOfClass("Motor6D")
+    if v627 then
+        v626.CanCollide = false
+        v626.Massless = true
+        v626.Anchored = false
+        v627.Part0 = p624
+        v627.Part1 = v626
+    else
+        v626.CFrame = vu611.PrimaryPart.CFrame * CFrame.new(0, 0, -2)
+    end
+    for _, v631 in pairs(v626:GetDescendants()) do
+        if v631:IsA("ParticleEmitter") then
+            v631:Emit(v631:GetAttribute("EmitCount") or 10)
+            if v627 then v631.Enabled = true end
+            if p623 == "head" and (p625 and p625.head) then table.insert(p625.head, v631) end
+            if p625 and p625.all then table.insert(p625.all, v631) end
+        end
+    end
+end
+
+local function v643()
+    local v633 = {}
+    local v634 = {}
+    vu632("arm", vu611["Right Arm"], {all = v634})
+    vu632("head", vu611.Head, {head = v633, all = v634})
+    task.wait(1.1)
+    for _, v638 in pairs(v633) do v638.Enabled = false end
+    for _, v642 in pairs(v634) do
+        v642.Enabled = false
+        vu614:AddItem(v642, 1)
+    end
+end
+
+local function v646()
+    vu632("arm2", vu611["Left Arm"])
+    vu632("auraoff", vu611["Left Arm"])
+    local vu644 = Instance.new("Part")
+    vu644.Size = Vector3.new(1, 1, 1)
+    vu644.Transparency = 1
+    vu644.Anchored = false
+    vu644.CanCollide = false
+    vu644.Parent = vu611.PrimaryPart
+    local vu645 = Instance.new("ParticleEmitter")
+    vu645.Texture = "rbxassetid://10826594435"
+    vu645.Rate = 50
+    vu645.Lifetime = NumberRange.new(1)
+    vu645.Speed = NumberRange.new(2)
+    vu645.SpreadAngle = Vector2.new(180, 180)
+    vu645.Parent = vu644
+    task.spawn(function()
+        vu645.Enabled = true
+        task.wait(1)
+        vu645.Enabled = false
+        vu614:AddItem(vu644, 2)
+    end)
+end
+
+vu617:GetMarkerReachedSignal("first"):Connect(v643)
+vu617:GetMarkerReachedSignal("sec"):Connect(v646)
+
+local CharacterAddedConn = vu610.CharacterAdded:Connect(setupParticles)
+
+task.delay(5, function()
+    vu617:Stop()
+    vu615:Stop()
+    for _, v652 in pairs(vu619) do
+        if v652 and v652.Parent then v652:Destroy() end
+    end
+end)
+
+task.delay(30, function()
+    if HeartbeatConnections and HeartbeatConnections[36] then
+        HeartbeatConnections[36]:Disconnect()
+        HeartbeatConnections[36] = nil
+    end
+    if CharacterAddedConn then
+        CharacterAddedConn:Disconnect()
+        CharacterAddedConn = nil
+    end
+end)

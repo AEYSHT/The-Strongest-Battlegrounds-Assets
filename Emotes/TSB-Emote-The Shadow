@@ -1,0 +1,65 @@
+local vu708 = game:GetService("Players").LocalPlayer
+                local vu709 = vu708.Character or vu708.CharacterAdded:Wait()
+                local v710 = vu709
+                local v711 = vu709.WaitForChild(v710, "Humanoid")
+                local vu712 = game:GetService("CollectionService")
+                local v713 = Instance.new("Sound")
+                v713.SoundId = "rbxassetid://140523806098392"
+                v713.Volume = 2
+                v713.Parent = vu709.PrimaryPart
+                v713:Play()
+                local vu714 = Instance.new("Sound")
+                vu714.SoundId = "rbxassetid://72724090837907"
+                vu714.Volume = 2
+                vu714.Looped = true
+                vu714.Parent = vu709.PrimaryPart
+                task.delay(1.25, function()
+                    vu714:Play()
+                end)
+                local v715 = Instance.new("Animation")
+                v715.AnimationId = "rbxassetid://100667788888119"
+                local vu716 = v711:LoadAnimation(v715)
+                vu716.Looped = false
+                local v717 = vu716
+                vu716.Play(v717)
+                local v718 = Instance.new("Animation")
+                v718.AnimationId = "rbxassetid://84711944358577"
+                local vu719 = v711:LoadAnimation(v718)
+                vu719.Looped = true
+                local vu720 = {}
+                local function vu722(p721)
+                    p721:SetAttribute("EmoteProperty", true)
+                    table.insert(vu720, p721)
+                    vu712:AddTag(p721, "emoteendstuff" .. vu708.Name)
+                end
+                task.delay(0.65, function()
+                    if not ({
+                        interrupted = false
+                    }).interrupted then
+                        local v723 = script.AllParticles.FaceShade:Clone()
+                        v723.Parent = vu709.Head
+                        vu722(v723)
+                        local v724 = script.AllParticles.Star:Clone()
+                        v724.Parent = vu709.Torso
+                        vu722(v724)
+                    end
+                end)
+                vu716.Stopped:Connect(function()
+                    vu719:Play()
+                end)
+                task.delay(10, function()
+                    vu716:Stop()
+                    vu719:Stop()
+                    vu714:Destroy()
+                    local v725, v726, v727 = pairs(vu720)
+                    while true do
+                        local v728
+                        v727, v728 = v725(v726, v727)
+                        if v727 == nil then
+                            break
+                        end
+                        if v728 and v728.Parent then
+                            v728:Destroy()
+                        end
+                    end
+                end)

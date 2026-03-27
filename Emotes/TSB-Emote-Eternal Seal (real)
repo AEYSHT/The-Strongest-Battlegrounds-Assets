@@ -1,0 +1,277 @@
+local v251 = game:GetService("Players").LocalPlayer
+local v252 = v251.Character or v251.CharacterAdded:Wait()
+local v253 = v252:WaitForChild("Humanoid")
+local v254 = Instance.new("Animation")
+v254.AnimationId = "rbxassetid://100255267749203"
+v253:LoadAnimation(v254):Play()
+
+local v255 = Instance.new("Sound")
+v255.SoundId = "rbxassetid://79605009444651"
+v255.Volume = 0
+v255.Parent = v252:FindFirstChild("HumanoidRootPart") or v252.PrimaryPart
+v255:Play()
+
+local v256 = Instance.new("Folder")
+v256.Name = "RuthlessBind"
+v256.Parent = v252
+v256:SetAttribute("EmoteProperty", true)
+
+if game.ReplicatedStorage:FindFirstChild("Emotes") and game.ReplicatedStorage.Emotes:FindFirstChild("VFX") then
+    require(game.ReplicatedStorage.Emotes.VFX):MainFunction({
+        Character = v252,
+        vfxName = "Eternal Seal",
+        SpecificModule = game.ReplicatedStorage.Emotes.VFX,
+        AnimSent = 100255267749203,
+        RealBind = v256
+    })
+end
+
+local v257 = game.Players.LocalPlayer
+local v258 = (v257.Character or v257.CharacterAdded:Wait()):WaitForChild("HumanoidRootPart")
+local v259 = {
+    SoundId = "rbxassetid://79605009444651",
+    ParentTorso = true,
+    Volume = 2
+}
+local v260 = Instance.new("Sound")
+v260.SoundId = v259.SoundId
+v260.Volume = v259.Volume
+v260.Parent = v259.ParentTorso and v258 and v258 or workspace
+v260:Play()
+
+local vu261 = game:GetService("TweenService")
+local vu262 = game:GetService("CollectionService")
+local v263 = game:GetService("ReplicatedStorage")
+local v264 = game:GetService("Players")
+local v265 = game:GetService("Workspace")
+local v266 = v264.LocalPlayer
+local vu267 = v266.Character or v266.CharacterAdded:Wait()
+local vu268 = v265:FindFirstChild("Thrown") or Instance.new("Folder", v265)
+vu268.Name = "Thrown"
+local vu269 = {}
+
+local function v271(p270)
+    p270:SetAttribute("EmoteProperty", true)
+    table.insert(vu269, p270)
+    vu262:AddTag(p270, "emoteendstuff" .. vu267.Name)
+    p270.Parent = vu268
+end
+
+local vu272 = v263.Emotes.PrisonRealmRig:Clone()
+local vu273 = v263.Emotes.RealmPrism:Clone()
+local v274 = v263.Emotes.Strings:Clone()
+
+v271(vu272)
+v271(vu273)
+v271(v274)
+
+local v275, v276, v277 = pairs({
+    vu272,
+    vu273,
+    unpack(v274:GetChildren())
+})
+local vu278 = vu269
+while true do
+    local v279
+    v277, v279 = v275(v276, v277)
+    if v277 == nil then
+        break
+    end
+    v279.PrimaryPart.Anchored = false
+    local v280 = Instance.new("Weld")
+    v280.Part0 = vu267.PrimaryPart
+    v280.Part1 = v279.PrimaryPart
+    v280.C0 = v279:GetAttribute("Offset")
+    v280.Parent = v279.PrimaryPart
+end
+
+local v281 = Instance.new("Sound")
+v281.SoundId = "rbxassetid://116434570262349"
+v281.Volume = 2
+v281.Parent = vu272:FindFirstChild("Bone_L", true)
+v281:Play()
+
+local function v286(p282, p283)
+    local v284 = Instance.new("Animation")
+    v284.AnimationId = "rbxassetid://" .. p283
+    local v285 = p282:FindFirstChild("AnimationController") and p282.AnimationController:LoadAnimation(v284) or p282:FindFirstChildOfClass("Humanoid"):LoadAnimation(v284)
+    v285:Play()
+    table.insert(vu278, v285)
+end
+
+v286(vu272, 132931842051377)
+v286(vu273, 73313263538976)
+
+local v287, v288, v289 = pairs({
+    115400109213203,
+    129152881643120,
+    116148929833466,
+    106613129685108,
+    85535076926939,
+    136688312702757
+})
+while true do
+    local v290
+    v289, v290 = v287(v288, v289)
+    if v289 == nil then
+        break
+    end
+    v286(v274["String" .. v289], v290)
+end
+
+local v291 = {
+    vu272.Cube_2,
+    vu272.Cube_finals,
+    vu272.OPEN,
+    vu272.CIRCLE_001,
+    vu272.Sphere_001,
+    vu273.RealmPrismPart,
+    v274.String4.Eye_014,
+    v274.String2.Cube_001,
+    v274.String6.Cube_001,
+    v274.String6.Eye_014,
+    v274.String1.Eye_014,
+    v274.String3.Cube_001,
+    v274.String1.Cube_001,
+    v274.String2.Eye_014,
+    v274.String3.Eye_014,
+    v274.String4.Cube_001,
+    v274.String5.Cube_001,
+    v274.String5.Eye_014,
+    vu272.Talismanmesh
+}
+
+local v292, v293, v294 = pairs(v291)
+while true do
+    local v295, v296 = v292(v293, v294)
+    if v295 == nil then
+        break
+    end
+    v294 = v295
+    if v296 then
+        v296.Transparency = 1
+        if v296:IsA("BasePart") then
+            v296.Size = Vector3.new(0.01, 0.01, 0.01)
+        end
+    end
+end
+
+task.delay(3.667, function()
+    if vu272.Parent then
+        vu272.RootPart.PrismRootPart.Talisman.ParticleEmitter:Emit(1)
+    end
+end)
+
+local function vu300(p297, p298, p299)
+    vu261:Create(p297, p299 or TweenInfo.new(0.016, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), p298):Play()
+end
+
+task.delay(9.15, function()
+    vu300(vu273.RealmPrismPart, {Transparency = 0})
+end)
+
+task.delay(9.166, function()
+    vu300(vu273.RealmPrismPart, {Size = Vector3.new(3.34, 3.31, 3.32)})
+end)
+
+task.delay(9.183, function()
+    vu300(vu273.RealmPrismPart, {Size = Vector3.new(1.67, 1.66, 1.66)}, TweenInfo.new(0.05))
+end)
+
+task.delay(9.233, function()
+    vu300(vu273.RealmPrismPart, {Size = Vector3.new(1.06, 2, 1.057)}, TweenInfo.new(0.116))
+end)
+
+task.delay(9.35, function()
+    vu300(vu273.RealmPrismPart, {Size = Vector3.new(0.5, 0.5, 0.5)}, TweenInfo.new(0.283))
+end)
+
+task.delay(9.633, function()
+    vu300(vu273.RealmPrismPart, {Transparency = 0}, TweenInfo.new(3.65))
+end)
+
+task.delay(13.283, function()
+    vu300(vu273.RealmPrismPart, {Transparency = 1})
+end)
+
+local v301 = {
+    v274.String1.Eye_014, v274.String2.Cube_001, v274.String3.Eye_014,
+    v274.String6.Cube_001, v274.String5.Eye_014, v274.String5.Cube_001,
+    v274.String4.Eye_014, v274.String1.Cube_001, v274.String2.Eye_014,
+    v274.String3.Cube_001, v274.String4.Cube_001, v274.String6.Eye_014
+}
+
+local v302, v303, v304 = pairs(v301)
+local vu305 = vu300
+while true do
+    local vu306
+    v304, vu306 = v302(v303, v304)
+    if v304 == nil then
+        break
+    end
+    task.delay(6.85, function()
+        vu305(vu306, {Transparency = 0, Size = Vector3.new(0.01, 0.01, 0.01)})
+    end)
+    task.delay(6.866, function()
+        vu305(vu306, {Size = Vector3.new(1.71, 1.69, 1.69)}, TweenInfo.new(0.316))
+    end)
+    task.delay(7.183, function()
+        vu305(vu306, {Size = Vector3.new(1.71, 1.69, 1.69)}, TweenInfo.new(1.916))
+    end)
+    task.delay(9.1, function()
+        vu305(vu306, {Transparency = 0}, TweenInfo.new(0.116))
+    end)
+    task.delay(9.216, function()
+        vu305(vu306, {Transparency = 1, Size = Vector3.new(0.01, 0.01, 0.01)})
+    end)
+end
+
+local vu307 = {
+    vu272.OPEN, vu272.Cube_finals, vu272.Cube_2, vu272.Sphere_001, vu272.CIRCLE_001
+}
+
+task.delay(0.4, function()
+    local v308, v309, v310 = pairs(vu307)
+    while true do
+        local v311
+        v310, v311 = v308(v309, v310)
+        if v310 == nil then
+            break
+        end
+        vu305(v311, {Transparency = 0})
+    end
+end)
+
+task.delay(0.416, function()
+    vu305(vu272.OPEN, {Size = Vector3.new(1.176, 1.181, 0.518)}, TweenInfo.new(4.133))
+    vu305(vu272.Cube_finals, {Size = Vector3.new(1.568, 1.568, 0.41)}, TweenInfo.new(4.133))
+    vu305(vu272.Cube_2, {Size = Vector3.new(1.568, 1.568, 0.661)}, TweenInfo.new(4.133))
+    vu305(vu272.Sphere_001, {Size = Vector3.new(0.549, 0.549, 0.549)}, TweenInfo.new(4.133))
+    vu305(vu272.CIRCLE_001, {Size = Vector3.new(0.489, 0.439, 0.201)}, TweenInfo.new(4.133))
+end)
+
+task.delay(4.55, function()
+    vu305(vu272.Talismanmesh, {Transparency = 1})
+    vu305(vu272.OPEN, {Size = Vector3.new(7.461, 7.494, 2.774)}, TweenInfo.new(0.316))
+    vu305(vu272.Cube_finals, {Size = Vector3.new(10.256, 10.256, 2)}, TweenInfo.new(0.316))
+    vu305(vu272.Cube_2, {Size = Vector3.new(10.256, 10.256, 3.788)}, TweenInfo.new(0.316))
+    vu305(vu272.Sphere_001, {Size = Vector3.new(2.997, 2.997, 2.997)}, TweenInfo.new(0.316))
+    vu305(vu272.CIRCLE_001, {Size = Vector3.new(2.565, 2.211, 0.513)}, TweenInfo.new(0.316))
+    task.wait(2.2)
+    vu272:Destroy()
+end)
+
+local v313 = game:GetService("RunService")
+local function vu321(p316)
+    for _, v320 in pairs(p316:GetDescendants()) do
+        if v320:IsA("BasePart") and v320.Anchored then
+            v320.Anchored = false
+        end
+    end
+end
+
+v313.RenderStepped:Connect(function()
+    if vu267 and vu267.Parent then
+        vu321(vu267)
+    end
+end)

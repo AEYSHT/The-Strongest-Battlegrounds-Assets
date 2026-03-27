@@ -1,0 +1,212 @@
+local vu540 = game:GetService("Players").LocalPlayer
+                local vu541 = vu540.Character or vu540.CharacterAdded:Wait()
+                local v542 = vu541:WaitForChild("Humanoid")
+                local vu543 = game:GetService("CollectionService")
+                local vu544 = Instance.new("Sound")
+                vu544.SoundId = "rbxassetid://125713401851477"
+                vu544.Volume = 2
+                vu544.Looped = true
+                vu544.Parent = vu541:FindFirstChild("HumanoidRootPart") or vu541.PrimaryPart
+                vu544:Play()
+                local v545 = Instance.new("Animation")
+                v545.AnimationId = "rbxassetid://74441004296237"
+                local vu546 = v542:LoadAnimation(v545)
+                vu546.Looped = true
+                local v547 = vu546
+                vu546.Play(v547)
+                local vu548 = {}
+                local function vu550(p549)
+                    p549:SetAttribute("EmoteProperty", true)
+                    table.insert(vu548, p549)
+                    vu543:AddTag(p549, "emoteendstuff" .. vu540.Name)
+                end
+                local function vu555()
+                    local v551, v552, v553 = pairs(vu541.PrimaryPart:GetChildren())
+                    while true do
+                        local v554
+                        v553, v554 = v551(v552, v553)
+                        if v553 == nil then
+                            break
+                        end
+                        if v554:GetAttribute("Wolf") then
+                            v554:Destroy()
+                        end
+                    end
+                end
+                local function v564(p556)
+                    local v557, v558, v559 = pairs(p556.things)
+                    while true do
+                        local v560
+                        v559, v560 = v557(v558, v559)
+                        if v559 == nil then
+                            break
+                        end
+                        local v561 = v560:Clone()
+                        vu550(v561)
+                        v561.Parent = p556.Parent or vu541
+                        local v562 = v561:FindFirstChildOfClass("Motor6D")
+                        if v562 then
+                            vu550(v562)
+                            local v563 = vu541["Right Arm"]
+                            if v560.Name == p556.Left then
+                                v563 = vu541["Left Arm"]
+                            end
+                            if p556.Parent then
+                                v563 = p556.Parent
+                            end
+                            v562.Part0 = v563
+                            v562.Part1 = v561
+                            v562.Parent = v563
+                        end
+                        if p556.set then
+                            v561:SetAttribute("Wolf", true)
+                        end
+                    end
+                end
+                local vu565 = script.BadWolf
+                v564({
+                    things = {
+                        vu565.HandleL,
+                        vu565.HandleR
+                    },
+                    Left = "HandleL"
+                })
+                v564({
+                    things = {
+                        vu565.Left,
+                        vu565.Right
+                    },
+                    Left = "Left",
+                    Parent = vu541.PrimaryPart,
+                    set = true
+                })
+                local function v572()
+                    local v566 = vu541:FindFirstChild("Sparks2")
+                    if not v566 then
+                        v566 = vu565.Sparks2:Clone()
+                        v566.Parent = vu541
+                        local v567 = v566:FindFirstChildOfClass("Motor6D")
+                        if v567 then
+                            v567.Part0 = vu541.PrimaryPart
+                            v567.Part1 = v566
+                            v567.Parent = vu541.PrimaryPart
+                        end
+                    end
+                    local v568, v569, v570 = pairs(v566:GetDescendants())
+                    while true do
+                        local v571
+                        v570, v571 = v568(v569, v570)
+                        if v570 == nil then
+                            break
+                        end
+                        if v571:IsA("ParticleEmitter") then
+                            v571:Emit(v571:GetAttribute("EmitCount") or 10)
+                        end
+                    end
+                end
+                local function v593()
+                    vu555()
+                    local v573 = vu541
+                    if not (vu541:FindFirstChild("SpinL") or v573:FindFirstChild("SpinR")) then
+                        local v574, v575, v576 = pairs({
+                            vu565.SpinL,
+                            vu565.SpinR
+                        })
+                        while true do
+                            local v577
+                            v576, v577 = v574(v575, v576)
+                            if v576 == nil then
+                                break
+                            end
+                            local v578 = v577:Clone()
+                            vu550(v578)
+                            v578.Parent = vu541
+                            local v579 = v578:FindFirstChildOfClass("Motor6D")
+                            local v580 = v577.Name == "SpinL" and vu541["Left Arm"] or vu541["Right Arm"]
+                            v579.Part0 = v580
+                            v579.Part1 = v578
+                            v579.Parent = v580
+                        end
+                    end
+                    local v581 = {
+                        vu541:FindFirstChild("SpinL"),
+                        (vu541:FindFirstChild("SpinR"))
+                    }
+                    local v582, v583, v584 = pairs(v581)
+                    local function v591(p585)
+                        local v586, v587, v588 = pairs(p585:GetDescendants())
+                        while true do
+                            local vu589
+                            v588, vu589 = v586(v587, v588)
+                            if v588 == nil then
+                                break
+                            end
+                            if vu589:IsA("ParticleEmitter") then
+                                task.spawn(function()
+                                    vu589.Enabled = true
+                                    local v590 = vu589
+                                    task.wait(v590:GetAttribute("EmitDuration") or 1)
+                                    if vu589 and vu589.Parent then
+                                        vu589.Enabled = false
+                                    end
+                                end)
+                            end
+                        end
+                    end
+                    while true do
+                        local v592
+                        v584, v592 = v582(v583, v584)
+                        if v584 == nil then
+                            break
+                        end
+                        if v592 then
+                            v591(v592)
+                        end
+                    end
+                end
+                local v594 = vu546
+                vu546.GetMarkerReachedSignal(v594, "stop"):Connect(vu555)
+                local v595 = vu546
+                vu546.GetMarkerReachedSignal(v595, "clang"):Connect(v572)
+                local v596 = vu546
+                vu546.GetMarkerReachedSignal(v596, "restart"):Connect(function()
+                    local v597, v598, v599 = pairs(vu541.PrimaryPart:GetChildren())
+                    while true do
+                        local v600
+                        v599, v600 = v597(v598, v599)
+                        if v599 == nil then
+                            break
+                        end
+                        if v600:GetAttribute("Wolf") then
+                            local v601, v602, v603 = pairs(v600:GetDescendants())
+                            while true do
+                                local v604
+                                v603, v604 = v601(v602, v603)
+                                if v603 == nil then
+                                    break
+                                end
+                                if v604:IsA("ParticleEmitter") then
+                                    v604:Emit(v604:GetAttribute("EmitCount") or 10)
+                                end
+                            end
+                        end
+                    end
+                end)
+                local v605 = vu546
+                vu546.GetMarkerReachedSignal(v605, "spin"):Connect(v593)
+                task.delay(6, function()
+                    vu546:Stop()
+                    vu544:Stop()
+                    local v606, v607, v608 = pairs(vu548)
+                    while true do
+                        local v609
+                        v608, v609 = v606(v607, v608)
+                        if v608 == nil then
+                            break
+                        end
+                        if v609 and v609.Parent then
+                            v609:Destroy()
+                        end
+                    end
+                    vu555()
+                end)

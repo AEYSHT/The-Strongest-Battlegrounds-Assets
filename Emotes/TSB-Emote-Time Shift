@@ -1,0 +1,28 @@
+local v425 = game:GetService("Players")
+                local v426 = game:GetService("ReplicatedStorage")
+                local v427 = v425.LocalPlayer
+                local v428 = v427.Character or v427.CharacterAdded:Wait()
+                local v429 = v428:WaitForChild("Humanoid")
+                local v430 = Instance.new("Animation")
+                v430.AnimationId = "rbxassetid://114451374603244"
+                local v431 = v429:LoadAnimation(v430)
+                v431:Play()
+                local v432 = Instance.new("Accessory")
+                v432.Name = "#EmoteHolder_" .. math.random(1, 100000)
+                v432.Parent = v428
+                v432:SetAttribute("EmoteProperty", true)
+                require(v426.Emotes.VFX):MainFunction({
+                    Character = v428,
+                    vfxName = "Time Shift",
+                    SpecificModule = v426.Emotes.VFX,
+                    AnimSent = 114451374603244,
+                    RealBind = v432
+                })
+                local v433 = Instance.new("Sound")
+                v433.SoundId = "rbxassetid://78909185953598"
+                v433.Volume = 3
+                v433.Parent = workspace
+                v433:Play()
+                task.wait(7.9)
+                v431:Stop()
+                v433:Stop()
