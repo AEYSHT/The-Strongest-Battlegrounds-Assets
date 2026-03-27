@@ -1,0 +1,26 @@
+local p = game.Players.LocalPlayer
+local s = game:GetService("SoundService")
+local c = p.Character or p.CharacterAdded:Wait()
+local h = c:WaitForChild("Humanoid")
+local animator = h:FindFirstChildOfClass("Animator") or Instance.new("Animator", h)
+
+
+local a = Instance.new("Animation")
+a.AnimationId = "rbxassetid://77586961719115"
+
+local track = animator:LoadAnimation(a)
+track:Play()
+
+local e = Instance.new("Accessory")
+e.Name = "#EmoteHolder_" .. math.random(1e5)
+e:SetAttribute("EmoteProperty", true)
+e.Parent = c
+
+local vfxModule = game.ReplicatedStorage.Emotes.VFX
+require(vfxModule):MainFunction({
+    Character = c,
+    vfxName = "STILL FUNNY?",
+    SpecificModule = vfxModule,
+    AnimSent = 77586961719115,
+    RealBind = e
+})
