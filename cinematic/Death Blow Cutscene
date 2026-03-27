@@ -1,0 +1,55 @@
+        local animationId = "15123665491"
+ 
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+ 
+local animation = Instance.new("Animation")
+animation.AnimationId = "rbxassetid://" .. animationId
+local animationTrack = humanoid:LoadAnimation(animation)
+animationTrack:Play()
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Camera = game.Workspace.CurrentCamera
+local RunService = game:GetService("RunService")
+local TweenService = game:GetService("TweenService")
+local Character = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+ 
+function Cinematic(moduleData)
+    local CinematicsModule = moduleData
+    local CurrentCameraCFrame = Camera.CFrame
+    local FrameTime = 0
+    local Connection
+ 
+    Character.Humanoid.AutoRotate = false
+    Camera.CameraType = Enum.CameraType.Scriptable
+ 
+    Connection = RunService.RenderStepped:Connect(function(DT)
+        FrameTime += DT * 60
+        local NeededFrame = CinematicsModule[math.ceil(FrameTime)]
+ 
+        if NeededFrame then
+            TweenService:Create(Camera, TweenInfo.new(0.015, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
+                CFrame = Character.HumanoidRootPart.CFrame * NeededFrame.cframe
+            }):Play()
+            Camera.FieldOfView = NeededFrame.fov
+        else
+            Connection:Disconnect()
+            Camera.FieldOfView = 70
+            Character.Humanoid.AutoRotate = true
+            Camera.CameraType = Enum.CameraType.Custom
+            Camera.CFrame = CurrentCameraCFrame	
+        end
+    end)
+end
+ 
+local moduleScript = ReplicatedStorage:WaitForChild("Cutscenes"):WaitForChild("Death Blow")
+local cutsceneData = require(moduleScript)  
+ 
+print("Cutscene data:", cutsceneData)
+ 
+wait(0.2)
+ 
+Cinematic(cutsceneData)
+ 
+wait(8.5)
+Character.HumanoidRootPart.Anchored = false
