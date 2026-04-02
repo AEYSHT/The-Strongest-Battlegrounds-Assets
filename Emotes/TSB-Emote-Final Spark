@@ -1,19 +1,23 @@
-local v357 = game:GetService("Players")
-                local v358 = game:GetService("ReplicatedStorage")
-                local v359 = v357.LocalPlayer
-                local v360 = v359.Character or v359.CharacterAdded:Wait()
-                local v361 = v360:WaitForChild("Humanoid")
-                local v362 = Instance.new("Animation")
-                v362.AnimationId = "rbxassetid://129361308786827"
-                v361:LoadAnimation(v362):Play()
-                local v363 = Instance.new("Accessory")
-                v363.Name = "#EmoteHolder_" .. math.random(1, 100000)
-                v363.Parent = v360
-                v363:SetAttribute("EmoteProperty", true)
-                require(v358.Emotes.VFX):MainFunction({
-                    Character = v360,
-                    vfxName = "Final Spark",
-                    SpecificModule = v358.Emotes.VFX,
-                    AnimSent = 129361308786827,
-                    RealBind = v363
-                })
+local players = game:GetService('Players')
+local storage = game:GetService('ReplicatedStorage')
+local plr = players.LocalPlayer
+local character = plr.Character or plr.CharacterAdded:Wait()
+local humanoid = character:WaitForChild('Humanoid')
+
+local anim = Instance.new('Animation')
+anim.AnimationId = 'rbxassetid://129361308786827'
+humanoid:LoadAnimation(anim):Play()
+
+local holder = Instance.new('Accessory')
+holder.Name = '#EmoteHolder_' .. math.random(1, 100000)
+holder.Parent = character
+holder:SetAttribute('EmoteProperty', true)
+
+local vfx = require(storage.Emotes.VFX)
+vfx:MainFunction({
+    Character = character,
+    vfxName = 'Final Spark',
+    SpecificModule = storage.Emotes.VFX,
+    AnimSent = 129361308786827,
+    RealBind = holder,
+})
